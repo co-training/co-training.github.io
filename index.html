@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Sim-and-Real Co-Training: A Simple Recipe for Vision-Based Robotic Manipulation.">
+  <meta name="keywords" content="Sim-and-Real Co-Training, Vision-Based Robotic Manipulation, Imitation Learning, Sim-to-Real Transfer, Robotics.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sim-and-Real Co-Training: A Simple Recipe for Vision-Based Robotic Manipulation</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script> -->
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Sim-and-Real Co-Training: A Simple Recipe for Vision-Based Robotic Manipulation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/abhiram-maddukuri-a987991ba">Abhiram Maddukuri</a><sup>*1</sup>,</span>
+            <span class="author-block">
+              <a href="https://zhenyujiang.me/">Zhenyu Jiang</a><sup>*1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://yunliangchen.github.io/">Lawrence Yunliang Chen</a><sup>*2,3</sup>,</span>
+            <span class="author-block">
+              <a href="https://snasiriany.me/">Soroush Nasiriany</a><sup>*2,3</sup>,</span>
+            <span class="author-block">
+              <a href="https://xieleo5.github.io/">Yuqi Xie</a><sup>*1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://squarefk.com/">Yu Fang</a><sup>*2</sup>,</span>
+            <span class="author-block">
+              Wenqi Huang<sup>*1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.zuwang95.com/">Zu Wang</a><sup>*2,4</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.zhenjiaxu.com/">Zhenjia Xu</a><sup>*2</sup>,</span>
+            <span class="author-block">
+              <a href="https://chernyadev.github.io/">Nikita Chernyadev</a><sup>*2</sup>,</span>
+            <span class="author-block">
+              <a href="https://reedscot.github.io/">Scott Reed</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://goldberg.berkeley.edu/">Ken Goldberg</a><sup>3</sup>,</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://ai.stanford.edu/~amandlek/">Ajay Mandlekar</a><sup>†2</sup>,</span>
+            <span class="author-block">
+              <a href="https://jimfan.me/">Linxi "Jim" Fan</a><sup>†2</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.cs.utexas.edu/~yukez/">Yuke Zhu</a><sup>†1,2</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors has-text-centered">
+            <p>*Equal Contributions, †Project Leads</p>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>UT Austin</span>
+            <span class="author-block"><sup>2</sup>NVIDIA Research</span>
+            <span class="author-block"><sup>3</sup>UC Berkeley</span>
+            <span class="author-block"><sup>4</sup>New York University</span>
+          </div>
+
+          <div class="is-size-5 publication-conference">
+            <p><strong>ICRA 2025</strong></p>
+          </div>
+
+          <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2410.24185"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2410.24185"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Video Link.
+                <span class="link-block">
+                  <a href="TODO"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span> -->
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/NVlabs/dexmimicgen/"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                    </a>
+                </span>
+                <!-- Twitter Link. -->
+                <span class="link-block">
+                  <a href="https://twitter.com/SteveTod1998/status/1852365700372832707"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fab fa-twitter"></i>
+                    </span>
+                    <span>Summary</span>
+                    </a>
+                </span>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- full overview video -->
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <div class="columns is-centered">
+            <div class="column is-centered">
+              <video class="center" playsinline autoplay loop muted controls src="./resources/full-overview.mp4" width="100%" style="border-radius:20px;"></video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <br>
+  <br>
+  <section class="hero is-light is-small">
+  <div class="hero-body">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>DexMimicGen automatically generates large datasets for bimanual dexterous manipulation from a few human demonstrations</strong></h3>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <video class="center" playsinline autoplay loop muted src="./resources/method-overview.mp4" width="100%" style="border-radius:20px;"></video>
+            <!-- <p style="text-align: center; font-size: 22px">MimicGen is a system for automatically generating large-scale, rich datasets from only a small number (~10) of human demonstrations.</p> -->
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><bold>MimicGen datasets can produce performant policies across diverse tasks with simple Behavioral Cloning</bold></h3>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+  
+  
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+  
+          <div class="columns is-centered">
+            <div class="column is-one-third">
+              <div class="video-container">
+                <video class="center" playsinline autoplay loop muted src="./resources/dp/can.mp4" style="border-radius:10px;"></video>
+                <p style="text-align: center; font-size: 18px">Can Sorting</p>
+                <p style="text-align: center; font-size: 16px">Success Rate: 97.3 ± 0.9%</p>
+              </div>
+            </div>
+            <div class="column is-one-third">
+              <div class="video-container">
+                <video class="center" playsinline autoplay loop muted src="./resources/dp/coffee.mp4" style="border-radius:10px;"></video>
+                <p style="text-align: center; font-size: 18px">Coffee</p>
+                <p style="text-align: center; font-size: 16px">Success Rate: 77.3 ± 0.9%</p>
+              </div>
+            </div>
+            <div class="column is-one-third">
+              <div class="video-container">
+                <video class="center" playsinline autoplay loop muted src="./resources/dp/pouring.mp4" style="border-radius:10px;"></video>
+                <p style="text-align: center; font-size: 18px">Pouring</p>
+                <p style="text-align: center; font-size: 16px">Success Rate: 79.3 ± 0.9%</p>
+              </div>
+            </div>
+          </div>
+          
+        </div> 
+      </div>
+    </div>
+  </section>
+  
+  
+  
+
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>DexMimicGen generates datasets for different simulation frameworks</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <p style="text-align: center; font-size: 18px; margin-bottom: 30px;">The following generated datasets are from the <a href="https://chernyadev.github.io/bigym/" target="_blank">BiGym</a> simulation framework and feature mobile bimanual manipulation, while the other visualized datasets come from the <a href="https://robosuite.ai" target="_blank">Robosuite</a>.</p>
+        <div class="columns is-centered">
+          <div class="column is-centered">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/bigym/DishwasherLoadPlates_accelerated.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Dishwasher Load Plates</p>
+            </div>
+          </div>
+          <div class="column is-centered">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/bigym/FlipCup_accelerated.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Flip Cup</p>
+            </div>
+          </div>
+          <div class="column is-centered">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/bigym/PutCups_accelerated.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Put Cups</p>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>DexMimicGen Pipeline Overview</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <img src="./resources/pipeline.jpg" width="100%" style="border-radius:20px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{maddukuri2025simandreal,
+      title     = {Sim-and-Real Co-Training: A Simple Recipe for Vision-Based Robotic Manipulation},
+      author    = {Maddukuri, Abhiram and Jiang, Zhenyu and Chen, Lawrence Yunliang and Nasiriany, Soroush and Xie, Yuqi and Fang, Yu and Huang, Wenqi and Wang, Zu and Xu, Zhenjia and Chernyadev, Nikita and Reed, Scott and Goldberg, Ken and Mandlekar, Ajay and Fan, Linxi and Zhu, Yuke},
+      booktitle = {preprint},
+      year      = {2025}
+}
+    </code></pre>
+  </div>
+</section>
+  <!-- booktitle = {TODO}, -->
+
+
+<section class="section" id="Acknowledgements">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Contact</h2>
+    <p>If you have any questions, please feel free to contact <a href="mailto:zhejiang@nviida.com">Zhenyu Jiang</a>, <a href="mailto:amandlekar@nvidia.com">Ajay Mandelkar</a>, <a href="mailto:linxif@nvidia.com">Jim Fan</a> and <a href="mailto:yukez@nvidia.com">Yuke Zhu</a>.</p>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website template borrowed from <a href="https://nerfies.github.io/">NeRFies</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
