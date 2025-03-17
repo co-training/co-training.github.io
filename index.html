@@ -218,7 +218,7 @@
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-three-quarters">
-        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>DexMimicGen automatically generates large datasets for bimanual dexterous manipulation from a few human demonstrations</strong></h3>
+        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>How can we leverage simulation data for real-world manipulation?</strong></h3>
       </div>
     </div>
   </div>
@@ -231,7 +231,7 @@
       <div class="column is-three-quarters">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <video class="center" playsinline autoplay loop muted src="./resources/method-overview.mp4" width="100%" style="border-radius:20px;"></video>
+            <video class="center" playsinline autoplay loop muted src="./resources/motivation.mp4" width="100%" style="border-radius:20px;"></video>
             <!-- <p style="text-align: center; font-size: 22px">MimicGen is a system for automatically generating large-scale, rich datasets from only a small number (~10) of human demonstrations.</p> -->
           </div>
         </div>
@@ -246,7 +246,7 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-three-quarters">
-          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><bold>MimicGen datasets can produce performant policies across diverse tasks with simple Behavioral Cloning</bold></h3>
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><bold>Our co-training strategy allows us to train performant policies without carefully aligning simulation with the real-world setups</bold></h3>
         </div>
       </div>
     </div>
@@ -260,23 +260,33 @@
         <div class="column is-three-quarters">
   
           <div class="columns is-centered">
-            <div class="column is-one-third">
+            <div class="column is-half">
               <div class="video-container">
-                <video class="center" playsinline autoplay loop muted src="./resources/dp/can.mp4" style="border-radius:10px;"></video>
+                <video class="center" playsinline autoplay loop muted src="./rollout/rollout_panda_countertocab.mp4" style="border-radius:10px;"></video>
                 <p style="text-align: center; font-size: 18px">Can Sorting</p>
                 <p style="text-align: center; font-size: 16px">Success Rate: 97.3 ± 0.9%</p>
               </div>
             </div>
-            <div class="column is-one-third">
+            <div class="column is-half">
               <div class="video-container">
-                <video class="center" playsinline autoplay loop muted src="./resources/dp/coffee.mp4" style="border-radius:10px;"></video>
+                <video class="center" playsinline autoplay loop muted src="./rollout/rollout_humanoid_cup.mp4" style="border-radius:10px;"></video>
                 <p style="text-align: center; font-size: 18px">Coffee</p>
                 <p style="text-align: center; font-size: 16px">Success Rate: 77.3 ± 0.9%</p>
               </div>
             </div>
-            <div class="column is-one-third">
+          </div>
+          
+          <div class="columns is-centered">
+            <div class="column is-half">
               <div class="video-container">
-                <video class="center" playsinline autoplay loop muted src="./resources/dp/pouring.mp4" style="border-radius:10px;"></video>
+                <video class="center" playsinline autoplay loop muted src="./rollout/rollout_humanoid_milk.mp4" style="border-radius:10px;"></video>
+                <p style="text-align: center; font-size: 18px">Pouring</p>
+                <p style="text-align: center; font-size: 16px">Success Rate: 79.3 ± 0.9%</p>
+              </div>
+            </div>
+            <div class="column is-half">
+              <div class="video-container">
+                <video class="center" playsinline autoplay loop muted src="./rollout/rollout_humanoid_milk.mp4" style="border-radius:10px;"></video>
                 <p style="text-align: center; font-size: 18px">Pouring</p>
                 <p style="text-align: center; font-size: 16px">Success Rate: 79.3 ± 0.9%</p>
               </div>
@@ -290,6 +300,76 @@
   
   
   
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Real-World and Simulation Data</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <img src="./resources/sim_real_data.jpg" width="100%" style="border-radius:20px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Sim-and-Real Co-Training Pipeline</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <img src="./resources/pipeline.png" width="100%" style="border-radius:20px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>How to get co-training working?</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <p style="text-align: center; font-size: 18px;">What data composition?</p>
+        <p style="text-align: center; font-size: 18px;">How aligned should digital cousin be?</p>
+        <p style="text-align: center; font-size: 18px;">How to sample the sim and real data?</p>
+        <p style="text-align: center; font-size: 18px;">……</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 
@@ -298,12 +378,42 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-three-quarters">
-          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>DexMimicGen generates datasets for different simulation frameworks</strong></h3>
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>We study 5 real-world tasks on 2 embodiments.</strong></h3>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./rollout/rollout_humanoid_milk.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Pouring</p>
+              <p style="text-align: center; font-size: 16px">Success Rate: 79.3 ± 0.9%</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./rollout/rollout_humanoid_milk.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Pouring</p>
+              <p style="text-align: center; font-size: 16px">Success Rate: 79.3 ± 0.9%</p>
+            </div>
+          </div>
+        </div>
+        
+      </div> 
+    </div>
+  </div>
+</section>
+
+
 
 <section class="section">
   <div class="container">
@@ -335,27 +445,6 @@
   </div>
 </section>
 
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-three-quarters">
-          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>DexMimicGen Pipeline Overview</strong></h3>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-three-quarters">
-        <img src="./resources/pipeline.jpg" width="100%" style="border-radius:20px;">
-      </div>
-    </div>
-  </div>
-</section>
 
 
 <section class="section" id="BibTeX">
