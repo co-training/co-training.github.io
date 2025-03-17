@@ -263,15 +263,15 @@
             <div class="column is-half">
               <div class="video-container">
                 <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_panda_countertocab.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Can Sorting</p>
-                <p style="text-align: center; font-size: 16px">Success Rate: 97.3 ± 0.9%</p>
+                <p style="text-align: center; font-size: 18px">Counter to Cabinet PnP</p>
+                <p style="text-align: center; font-size: 16px">Success Rate: 47%</p>
               </div>
             </div>
             <div class="column is-half">
               <div class="video-container">
                 <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_cup.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Coffee</p>
-                <p style="text-align: center; font-size: 16px">Success Rate: 77.3 ± 0.9%</p>
+                <p style="text-align: center; font-size: 18px">Cup PnP</p>
+                <p style="text-align: center; font-size: 16px">Success Rate: 85%</p>
               </div>
             </div>
           </div>
@@ -280,15 +280,15 @@
             <div class="column is-half">
               <div class="video-container">
                 <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_milk.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Pouring</p>
-                <p style="text-align: center; font-size: 16px">Success Rate: 79.3 ± 0.9%</p>
+                <p style="text-align: center; font-size: 18px">Milk Box PnP</p>
+                <p style="text-align: center; font-size: 16px">Success Rate: 80%</p>
               </div>
             </div>
             <div class="column is-half">
               <div class="video-container">
                 <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_milk.mp4" style="border-radius:10px;"></video>
                 <p style="text-align: center; font-size: 18px">Pouring</p>
-                <p style="text-align: center; font-size: 16px">Success Rate: 79.3 ± 0.9%</p>
+                <p style="text-align: center; font-size: 16px">Success Rate: 90%</p>
               </div>
             </div>
           </div>
@@ -316,7 +316,7 @@
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-three-quarters">
-        <img src="./resources/sim_real_data.jpg" width="100%" style="border-radius:20px;">
+        <img src="./resources/sim_real_data.png" width="100%" style="border-radius:20px;">
       </div>
     </div>
   </div>
@@ -341,6 +341,9 @@
     <div class="columns is-centered">
       <div class="column is-three-quarters">
         <img src="./resources/pipeline.png" width="100%" style="border-radius:20px;">
+        <p style="text-align: center; font-size: 16px; margin-top: 15px;">
+          <strong>Left:</strong> Given real-world tasks and prior simulation data, we can build additional digital cousin tasks that share semantic similarities with their real-world counterparts but may still have discrepancies in visual and physical features; <strong>Middle:</strong> We co-train on a mixture of real-world and simulation data. We sample simulation data according to a sampling ratio of alpha, and as we show in experiments, this sample ratio is crucial. <strong>Right:</strong> After training the policy, we deploy the resulting policy directly in the real world.
+        </p>
       </div>
     </div>
   </div>
@@ -371,20 +374,15 @@
   </div>
 </section>
 
-
-
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-three-quarters">
-          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>We study 5 real-world tasks on 2 embodiments.</strong></h3>
-        </div>
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;"><strong>We study 5 real-world tasks on 2 embodiments</strong></p>
       </div>
     </div>
   </div>
 </section>
-
 
 <section class="section">
   <div class="container">
@@ -403,6 +401,30 @@
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/demo_data/CounterToSinkRealDemonstration.mp4" style="border-radius:10px;"></video>
               <p style="text-align: center; font-size: 18px">Pouring</p>
+              <p style="text-align: center; font-size: 16px">Success Rate: 79.3 ± 0.9%</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="columns is-centered">
+          <div class="column is-one-third">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/demo_data/cup.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Cup Task</p>
+              <p style="text-align: center; font-size: 16px">Success Rate: 79.3 ± 0.9%</p>
+            </div>
+          </div>
+          <div class="column is-one-third">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/demo_data/milk.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Milk Task</p>
+              <p style="text-align: center; font-size: 16px">Success Rate: 79.3 ± 0.9%</p>
+            </div>
+          </div>
+          <div class="column is-one-third">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/demo_data/pour.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Pour Task</p>
               <p style="text-align: center; font-size: 16px">Success Rate: 79.3 ± 0.9%</p>
             </div>
           </div>
