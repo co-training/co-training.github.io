@@ -200,20 +200,13 @@
   <section class="section">
     <div class="container">
       <div class="columns is-centered">
-
         <div class="column is-three-quarters">
           <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;"><strong>This work presents a simple recipe for effectively utilizing simulation data for real-world vision-based manipulation tasks.</strong></p>
+          
+          <video class="center" playsinline autoplay loop muted controls src="./resources/placeeholder.mp4" width="100%" style="border-radius:20px;"></video>
+          
+          <p style="text-align: center; font-size: 22px; margin-top: 20px;">We collect a modest number of demonstrations in real-world environments and use existing simulation frameworks and data generation tools to generate large-scale synthetic data in simulation. Across all embodiments and tasks that we study, simulation can offer a substantial improvement in performance even without perfect alignment to the real world. Furthermore, co-training can aid transfer even when the simulation and real-world data have significant discrepancies.</p>
         </div>
-
-        <div class="column is-three-quarters">
-          <div class="columns is-centered">
-            <div class="column is-centered">
-              <video class="center" playsinline autoplay loop muted controls src="./resources/placeeholder.mp4" width="100%" style="border-radius:20px;"></video>
-              <p style="text-align: center; font-size: 22px">We collect a modest number of demonstrations in real-world environments and use existing simulation frameworks and data generation tools to generate large-scale synthetic data in simulation. Across all embodiments and tasks that we study, simulation can offer a substantial improvement in performance even without perfect alignment to the real world. Furthermore, co-training can aid transfer even when the simulation and real-world data have significant discrepancies.</p>              
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -292,12 +285,9 @@
 <section class="section">
   <div class="container">
     <div class="columns is-centered">
-
       <div class="column is-three-quarters">
-          <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;">Creating a perfect digital twin copy of the real-world task is challenging, requiring extensive manual tuning, system identification, and sourcing identical 3D assets. Instead, we opt to create tasks in simulation that share the same task semantics, namely the object categories in the environment and the same behaviors. We call these <strong>task-aware digital cousins</strong>.</p>
-      </div>
-
-      <div class="column is-three-quarters">
+        <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;">Creating a perfect digital twin copy of the real-world task is challenging, requiring extensive manual tuning, system identification, and sourcing identical 3D assets. Instead, we opt to create tasks in simulation that share the same task semantics, namely the object categories in the environment and the same behaviors. We call these <strong>task-aware digital cousins</strong>.</p>
+        
         <img src="./resources/demo_data/digital_cousins_humanoid_only.png" width="100%" style="border-radius:20px;">
         <p style="text-align: center; font-size: 16px; margin-top: 15px;">
           Examples of <strong>task-aware digital cousins</strong> for the 3 tasks we study on the humanoid. N
@@ -324,12 +314,13 @@
 <section class="section">
   <div class="container">
     <div class="columns is-centered">
-
       <div class="column is-three-quarters">
-            <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;">We also take advantage of large-scale simulation datasets, which require no additional efforts on designing new tasks in simulation and collecting new data. These prior task-agnostic simulation datasets may have numerous discrepancies with real-world data, but they present a very simple and convenient way to leverage simulation data.</p>
+        <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;">We also take advantage of large-scale simulation datasets, which require no additional efforts on designing new tasks in simulation and collecting new data. These prior task-agnostic simulation datasets may have numerous discrepancies with real-world data, but they present a very simple and convenient way to leverage simulation data.</p>
       </div>
-
-      <div class="column is-half">
+    </div>
+    
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
         <div class="video-container">
           <video class="center" playsinline autoplay loop muted src="./resources/demo_data/prior_humanoid.mp4" style="border-radius:10px;"></video>
           <p style="text-align: center; font-size: 18px"><strong>Prior Task-agnostic Simulation Data</strong> in our humanoid tabletop setup (10 tasks)</p>
@@ -608,11 +599,11 @@
         <div class="columns is-centered">
           <div class="column is-three-quarters">
             <p style="text-align: left; font-size: 18px;">Based on our empirical findings, we conclude with a set of recommendations to help practitioners reap the benefits of co-training with synthetic simulation data.</p>
-            <p style="text-align: left; font-size: 16px;">• <strong>Tasks to include in simulation data.</strong> Best results are achieved by using a task-aware digital cousin, but we found that large multi-task prior simulation data can still be effective for co-training. However, it is important for similar tasks to be included in the prior data. </p>
-            <p style="text-align: left; font-size: 16px;">• <strong>Creating a task-aware digital cousin.</strong> It is important for the simulation task to share the same definition and success criteria as the real-world counterpart and for the simulation camera viewpoints to be similar to the real world. Other factors, such as the objects used, their placements, and visuals, can differ.</p>
-            <p style="text-align: left; font-size: 16px;">• <strong>Quantity of simulation data.</strong> Use a sufficient amount of simulation data (e.g., orders of magnitude larger than the real-world data).</p>
-            <p style="text-align: left; font-size: 16px;">• <strong>Co-training ratio.</strong> Careful tuning of the co-training ratio is crucial for optimizing performance.</p>
-            <p style="text-align: left; font-size: 16px;">• <strong>Facilitating real-world generalization.</strong> Including diversity in objects and their placements in the simulation data can help real-world policies generalize to unseen situations.</p>
+            <p style="text-align: left; font-size: 18px;">• <strong>Tasks to include in simulation data.</strong> Best results are achieved by using a task-aware digital cousin, but we found that large multi-task prior simulation data can still be effective for co-training. However, it is important for similar tasks to be included in the prior data. </p>
+            <p style="text-align: left; font-size: 18px;">• <strong>Creating a task-aware digital cousin.</strong> It is important for the simulation task to share the same definition and success criteria as the real-world counterpart and for the simulation camera viewpoints to be similar to the real world. Other factors, such as the objects used, their placements, and visuals, can differ.</p>
+            <p style="text-align: left; font-size: 18px;">• <strong>Quantity of simulation data.</strong> Use a sufficient amount of simulation data (e.g., orders of magnitude larger than the real-world data).</p>
+            <p style="text-align: left; font-size: 18px;">• <strong>Co-training ratio.</strong> Careful tuning of the co-training ratio is crucial for optimizing performance.</p>
+            <p style="text-align: left; font-size: 18px;">• <strong>Facilitating real-world generalization.</strong> Including diversity in objects and their placements in the simulation data can help real-world policies generalize to unseen situations.</p>
           </div>
         </div>
 
@@ -623,7 +614,7 @@
         <div class="columns is-centered">
           <div class="column is-three-quarters">
             <img src="./resources/results/data_composition.png" width="100%" style="border-radius:20px;">
-            <p style="text-align: center; font-size: 16px; margin-top: 15px;">Co-training with prior simulation data enhances real-world performance beyond real-only policies. Co-training with task-aware digital cousin data further improves real-world performance.</p>
+            <p style="text-align: center; font-size: 16px; margin-top: 18px;">Co-training with prior simulation data enhances real-world performance beyond real-only policies. Co-training with task-aware digital cousin data further improves real-world performance.</p>
           </div>
         </div>
 
@@ -635,7 +626,7 @@
         <div class="columns is-centered">
           <div class="column is-three-quarters">
             <img src="./resources/results/num_data.png" width="100%" style="border-radius:20px;">
-            <p style="text-align: center; font-size: 16px; margin-top: 15px;">A sufficient number of demonstrations is needed for effective co-training.</p>
+            <p style="text-align: center; font-size: 16px; margin-top: 18px;">A sufficient number of demonstrations is needed for effective co-training.</p>
           </div>
         </div>
 
@@ -647,7 +638,7 @@
         <div class="columns is-centered">
           <div class="column is-three-quarters">
             <img src="./resources/results/cotraining_ratio.png" width="100%" style="border-radius:20px;">
-            <p style="text-align: center; font-size: 16px; margin-top: 15px;">An appropriate co-training ratio is crucial for effective co-training.</p>
+            <p style="text-align: center; font-size: 16px; margin-top: 18px;">An appropriate co-training ratio is crucial for effective co-training.</p>
           </div>
         </div>
 
@@ -660,7 +651,7 @@
         <div class="columns is-centered">
           <div class="column is-three-quarters">
             <img src="./resources/results/camera_alignment.png" width="100%" style="border-radius:20px;">
-            <p style="text-align: center; font-size: 16px; margin-top: 15px;">Camera alignment is critical for successful co-training with digital cousin data.</p>
+            <p style="text-align: center; font-size: 16px; margin-top: 18px;">Camera alignment is critical for successful co-training with digital cousin data.</p>
           </div>
         </div>
         
