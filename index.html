@@ -229,15 +229,65 @@
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-three-quarters">
+
         <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <video class="center" playsinline autoplay loop muted src="./resources/placeholder.mp4" width="100%" style="border-radius:20px;"></video>
-            <p style="text-align: center; font-size: 22px">Placeholder</p>              
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_only.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Trained on Real-Only Data</p>
+              <p style="text-align: center; font-size: 16px">Success Rate: 31%</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_dc.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Trained on Real-Only + Task-Aware Digital Cousin</p>
+              <p style="text-align: center; font-size: 16px">Success Rate: 71%</p>
+            </div>
           </div>
         </div>
+        
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_prior.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Trained on Real-Only + Prior Simulation Data</p>
+              <p style="text-align: center; font-size: 16px">Success Rate: 69%</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_prior_dc.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Trained on Real-Only + Prior Simulation Data + Task-Aware Digital Cousin</p>
+              <p style="text-align: center; font-size: 16px">Success Rate: 76%</p>
+            </div>
+          </div>
+        </div>
+        
+      </div> 
+    </div>
+
+
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <img src="./resources/main_table.png" width="100%" style="border-radius:20px;">
+        <p style="text-align: center; font-size: 16px; margin-top: 15px;">
+          We compare co-training with different simulation data on five tasks across two robots. Co-training with Prior consistently boosts performance over policies trained on real data only. On top of these results, adding better aligned DC usually further improves the performance.
+        </p>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <img src="./resources/ladder_to_the_moon.png" width="100%" style="border-radius:20px;">
+        <p style="text-align: center; font-size: 16px; margin-top: 15px;">
+          We use 4000 simulation demos and vary the number of real demos from 40 to 400. Even with 400 real demonstrations, the co-trained policy consistently outperforms the real-only policy, demonstrating the effectiveness of our co-training strategy.
+        </p>
+      </div>
     </div>
   </div>
 </section>
+
 
 
   <!-- <br>
@@ -282,6 +332,98 @@
   </div>
 </section>
 
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        
+        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Creating a perfect digital twin copy of the real-world task is challenging, requiring extensive manual tuning, system identification, and sourcing identical 3D assets. Instead, we opt to create tasks in simulation that share the same task semantics, namely the object categories in the environment and the same behaviors. We call these <strong>task-aware digital cousins</strong>.</p>
+
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/cup_sim.mov" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Cup PnP Digital Cousin</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/cup_real.mov" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Cup PnP Real Demonstrations</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/milk_sim.mov" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Milk Box PnP Digital Cousin</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/milk_real.mov" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Milk Box PnP Real Demonstrations</p>
+            </div>
+          </div>
+        </div>
+        
+
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/pour_sim.mov" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Pour PnP Digital Cousin</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/pour_real.mov" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Pour PnP Real Demonstrations</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/bimanual_sim.mov" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Bimanual PnP Digital Cousin</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/bimanual_real.mov" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Bimanual PnP Real Demonstrations</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/4DC_sim_5x.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Multi-Task PnP Digital Cousin</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/4DC_real_3x.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Multi-Task PnP Real Demonstrations</p>
+            </div>
+          </div>
+        </div>
+
+
+      </div> 
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="container">
     <div class="columns is-centered">
@@ -290,7 +432,7 @@
         
         <img src="./resources/demo_data/digital_cousins_humanoid_only.png" width="100%" style="border-radius:20px;">
         <p style="text-align: center; font-size: 16px; margin-top: 15px;">
-          Examples of <strong>task-aware digital cousins</strong> for the 3 tasks we study on the humanoid. N
+          Examples of <strong>task-aware digital cousins</strong> for the 3 tasks we study on the humanoid. 
         </p>
       </div>
     </div>
