@@ -279,7 +279,7 @@
 
     <div class="columns is-centered">
       <div class="column is-three-quarters">
-        <img src="./resources/ladder_to_the_moon.png" width="100%" style="border-radius:20px;">
+        <img src="./resources/results/ladder_to_the_moon.png" width="100%" style="border-radius:20px;">
         <p style="text-align: center; font-size: 16px; margin-top: 15px;">
           We use 4000 simulation demos and vary the number of real demos from 40 to 400. Even with 400 real demonstrations, the co-trained policy consistently outperforms the real-only policy, demonstrating the effectiveness of our co-training strategy.
         </p>
@@ -424,7 +424,7 @@
   </div>
 </section>
 
-<section class="section">
+<!-- <section class="section">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-three-quarters">
@@ -437,7 +437,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 
 
@@ -457,7 +457,7 @@
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-three-quarters">
-        <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;">We also take advantage of large-scale simulation datasets, which require no additional efforts on designing new tasks in simulation and collecting new data. These prior task-agnostic simulation datasets may have numerous discrepancies with real-world data, but they present a very simple and convenient way to leverage simulation data.</p>
+        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">We also take advantage of large-scale simulation datasets, which require no additional efforts on designing new tasks in simulation and collecting new data. These prior task-agnostic simulation datasets may have numerous discrepancies with real-world data, but they present a very simple and convenient way to leverage simulation data.</p>
       </div>
     </div>
     
@@ -738,18 +738,13 @@
     <div class="columns is-centered">
       <div class="column is-three-quarters">
         
-        <div class="columns is-centered">
-          <div class="column is-three-quarters">
-            <p style="text-align: left; font-size: 18px;">Based on our empirical findings, we conclude with a set of recommendations to help practitioners reap the benefits of co-training with synthetic simulation data.</p>
-            <p style="text-align: left; font-size: 18px;">• <strong>Tasks to include in simulation data.</strong> Best results are achieved by using a task-aware digital cousin, but we found that large multi-task prior simulation data can still be effective for co-training. However, it is important for similar tasks to be included in the prior data. </p>
-            <p style="text-align: left; font-size: 18px;">• <strong>Creating a task-aware digital cousin.</strong> It is important for the simulation task to share the same definition and success criteria as the real-world counterpart and for the simulation camera viewpoints to be similar to the real world. Other factors, such as the objects used, their placements, and visuals, can differ.</p>
-            <p style="text-align: left; font-size: 18px;">• <strong>Quantity of simulation data.</strong> Use a sufficient amount of simulation data (e.g., orders of magnitude larger than the real-world data).</p>
-            <p style="text-align: left; font-size: 18px;">• <strong>Co-training ratio.</strong> Careful tuning of the co-training ratio is crucial for optimizing performance.</p>
-            <p style="text-align: left; font-size: 18px;">• <strong>Facilitating real-world generalization.</strong> Including diversity in objects and their placements in the simulation data can help real-world policies generalize to unseen situations.</p>
-          </div>
-        </div>
+        <p style="text-align: left; font-size: 20px;">Based on our empirical findings, we provide a set of recommendations to help practitioners reap the benefits of co-training with synthetic simulation data.</p>
+        <p style="text-align: left; font-size: 20px;">• <strong>Task and scene composition.</strong> The best results are achieved when co-training with simulation data from task-aware digital cousins, where the task and scene compositions closely resemble those of real-world tasks. However, co-training with large multi-task prior simulation data—where task and scene compositions differ from real-world settings—can still be beneficial.</p>
+        <p style="text-align: left; font-size: 20px;">• <strong>Object composition and initialization distribution.</strong> Incorporating diverse objects and varying their placements in simulation data helps real-world policies generalize to unseen scenarios.</p>
+        <p style="text-align: left; font-size: 20px;">• <strong>Alignment between the task-aware digital cousin and the real world.</strong> It is essential for the simulation task to share the same definition and success criteria as its real-world counterpart. Additionally, ensuring similar camera viewpoints between simulation and real-world settings improves performance, though perfect alignment is not necessary.</p>
+        <p style="text-align: left; font-size: 20px;">• <strong>Co-training hyperparameters.</strong> Utilize a sufficiently large amount of simulation data (e.g., orders of magnitude more than real-world data). Additionally, careful tuning of the co-training ratio is critical for optimizing performance.</p>
 
-        <div class="column is-three-quarters">
+        <!-- <div class="column is-three-quarters">
           <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;"><strong>Data Composition</strong></p>
         </div>
 
@@ -767,7 +762,7 @@
 
         <div class="columns is-centered">
           <div class="column is-three-quarters">
-            <img src="./resources/results/num_data.png" width="100%" style="border-radius:20px;">
+            <img src="./resources/results/ladder_to_the_moon.png" width="100%" style="border-radius:20px;">
             <p style="text-align: center; font-size: 16px; margin-top: 18px;">A sufficient number of demonstrations is needed for effective co-training.</p>
           </div>
         </div>
@@ -780,9 +775,9 @@
         <div class="columns is-centered">
           <div class="column is-three-quarters">
             <img src="./resources/results/cotraining_ratio.png" width="100%" style="border-radius:20px;">
-            <p style="text-align: center; font-size: 16px; margin-top: 18px;">An appropriate co-training ratio is crucial for effective co-training.</p>
+            <p style="text-align: center; font-size: 16px; margin-top: 18px;">Effect of the different co-training ratios, i.e., the percentage of simulation data sampled in each training step. We experiment on CupPnP task with 20 real demos and 1000 simulation demos from task-aware digital cousins. Tuning the co-training ratio is important for good performance of co-trained policies.</p>
           </div>
-        </div>
+        </div> -->
 
 
 
@@ -793,7 +788,7 @@
         <div class="columns is-centered">
           <div class="column is-three-quarters">
             <img src="./resources/results/camera_alignment.png" width="100%" style="border-radius:20px;">
-            <p style="text-align: center; font-size: 16px; margin-top: 18px;">Camera alignment is critical for successful co-training with digital cousin data.</p>
+            <p style="text-align: center; font-size: 16px; margin-top: 18px;"><strong>Visualization of the default and aligned camera views.</strong> To evaluate the importance of this alignment, we rendered data using the default, unaligned camera view and trained policies on the resulting misaligned simulation data. The results indicate a significant drop in performance compared to policies co-trained with properly aligned DC data. On the Panda arm CounterToSinkPnP task, the cotraining success rate dropped from 67% to 56%, while in the GR-1 humanoid CupPnP task, it declined from 95% to 70%. Notably, the aligned camera is not strictly identical to the real-world camera.</p>
           </div>
         </div>
         
@@ -816,35 +811,6 @@
 </section>
 
 
-<!-- <section class="section">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-three-quarters">
-        <p style="text-align: center; font-size: 18px; margin-bottom: 30px;">The following generated datasets are from the <a href="https://chernyadev.github.io/bigym/" target="_blank">BiGym</a> simulation framework and feature mobile bimanual manipulation, while the other visualized datasets come from the <a href="https://robosuite.ai" target="_blank">Robosuite</a>.</p>
-        <div class="columns is-centered">
-          <div class="column is-centered">
-            <div class="video-container">
-              <video class="center" playsinline autoplay loop muted src="./resources/bigym/DishwasherLoadPlates_accelerated.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Dishwasher Load Plates</p>
-            </div>
-          </div>
-          <div class="column is-centered">
-            <div class="video-container">
-              <video class="center" playsinline autoplay loop muted src="./resources/bigym/FlipCup_accelerated.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Flip Cup</p>
-            </div>
-          </div>
-          <div class="column is-centered">
-            <div class="video-container">
-              <video class="center" playsinline autoplay loop muted src="./resources/bigym/PutCups_accelerated.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Put Cups</p>
-            </div>
-          </div>
-        </div>
-      </div> 
-    </div>
-  </div>
-</section> -->
 
 
 
@@ -867,7 +833,7 @@
       <div class="column is-three-quarters">
         <img src="./resources/pipeline.png" width="100%" style="border-radius:20px;">
         <p style="text-align: center; font-size: 16px; margin-top: 15px;">
-          <strong>Left:</strong> Given real-world tasks and prior simulation data, we can build additional digital cousin tasks that share semantic similarities with their real-world counterparts but may still have discrepancies in visual and physical features; <strong>Middle:</strong> We co-train on a mixture of real-world and simulation data. We sample simulation data according to a sampling ratio of alpha, and as we show in experiments, this sample ratio is crucial. <strong>Right:</strong> After training the policy, we deploy the resulting policy directly in the real world.
+          <strong>Sim-and-Real Co-training Pipeline.</strong> <strong>Left:</strong> We start with a real-world task in mind and some prior simulation data. <strong>Middle:</strong> Given real-world tasks and prior simulation data, we can build additional digital cousin tasks that share semantic similarities with their real-world counterparts but may still have discrepancies in visual and physical features. From here we can consolidate prior simulation data, digital cousin data, and real world data. <strong>Right:</strong> We co-train on a mixture of real-world and simulation data. We sample simulation data according to a sampling ratio of &alpha;, and as we show in experiments, this sample ratio is crucial. After training the policy, we deploy the resulting policy directly in the real world.
         </p>
       </div>
     </div>
