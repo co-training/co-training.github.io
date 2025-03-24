@@ -218,7 +218,7 @@
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-three-quarters">
-        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Our strategy significantly boosts real-only performance</strong></h3>
+        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Our sim-and-real co-training strategy significantly boosts real-only performance</strong></h3>
       </div>
     </div>
   </div>
@@ -233,14 +233,14 @@
         <div class="columns is-centered">
           <div class="column is-half">
             <div class="video-container">
-              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_only.mp4" style="border-radius:10px;"></video>
+              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_only_overlaid.mp4" style="border-radius:10px;"></video>
               <p style="text-align: center; font-size: 18px">Trained on Real-Only Data</p>
               <p style="text-align: center; font-size: 16px">Success Rate: 31%</p>
             </div>
           </div>
           <div class="column is-half">
             <div class="video-container">
-              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_dc.mp4" style="border-radius:10px;"></video>
+              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_dc_overlaid.mp4" style="border-radius:10px;"></video>
               <p style="text-align: center; font-size: 18px">Trained on Real-Only + Task-Aware Digital Cousin</p>
               <p style="text-align: center; font-size: 16px">Success Rate: 71%</p>
             </div>
@@ -250,14 +250,14 @@
         <div class="columns is-centered">
           <div class="column is-half">
             <div class="video-container">
-              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_prior.mp4" style="border-radius:10px;"></video>
+              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_prior_overlaid.mp4" style="border-radius:10px;"></video>
               <p style="text-align: center; font-size: 18px">Trained on Real-Only + Prior Simulation Data</p>
               <p style="text-align: center; font-size: 16px">Success Rate: 69%</p>
             </div>
           </div>
           <div class="column is-half">
             <div class="video-container">
-              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_prior_dc.mp4" style="border-radius:10px;"></video>
+              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_dc_prior_overlaid.mp4" style="border-radius:10px;"></video>
               <p style="text-align: center; font-size: 18px">Trained on Real-Only + Prior Simulation Data + Task-Aware Digital Cousin</p>
               <p style="text-align: center; font-size: 16px">Success Rate: 76%</p>
             </div>
@@ -272,32 +272,25 @@
       <div class="column is-three-quarters">
         <img src="./resources/main_table.png" width="100%" style="border-radius:20px;">
         <p style="text-align: center; font-size: 16px; margin-top: 15px;">
-          We compare co-training with different simulation data on five tasks across two robots. Co-training with Prior consistently boosts performance over policies trained on real data only. On top of these results, adding better aligned DC usually further improves the performance.
-        </p>
-      </div>
-    </div>
-
-    <div class="columns is-centered">
-      <div class="column is-three-quarters">
-        <img src="./resources/results/ladder_to_the_moon.png" width="100%" style="border-radius:20px;">
-        <p style="text-align: center; font-size: 16px; margin-top: 15px;">
-          We use 4000 simulation demos and vary the number of real demos from 40 to 400. Even with 400 real demonstrations, the co-trained policy consistently outperforms the real-only policy, demonstrating the effectiveness of our co-training strategy.
+          We compare co-training with different simulation data on six tasks across two robots. Co-training with Prior consistently boosts performance over policies trained on real data only. On top of these results, adding better aligned DC usually further improves the performance.
         </p>
       </div>
     </div>
   </div>
 </section>
 
+    
 
 
-  <!-- <br>
+
+
   <br>
   <section class="hero is-light is-small">
   <div class="hero-body">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-three-quarters">
-        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>How can we leverage simulation data for real-world manipulation?</strong></h3>
+        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Is it sufficient to just collect lots of real data?</strong></h3>
       </div>
     </div>
   </div>
@@ -306,16 +299,21 @@
 
 <section class="section">
   <div class="container">
-    <div class="columns is-centered">
       <div class="column is-three-quarters">
+
+        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Recent advancements in robot learning suggest that policies trained with large-scale, multi-task real robot data are more robust and generalizable. To evaluate how far we can get with just real data, we designed a MultiTaskPnP task on the humanoid, where the robot needs to pick an object from one container and place it into another, with four different source-target container combinations. We collected 400 real demonstrations and trained a policy on them. The results below show that the policy performs poorly, even with 400 real demonstrations. In contrast, our co-training strategy consistently outperforms the real-only policy, demonstrating the effectiveness of our co-training strategy.</p>
+
         <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <video class="center" playsinline autoplay loop muted src="./resources/motivation.mp4" width="100%" style="border-radius:20px;"></video>
+          <div class="column is-three-quarters">
+            <img src="./resources/results/ladder_to_the_moon.png" width="100%" style="border-radius:20px;">
+            <p style="text-align: center; font-size: 16px; margin-top: 15px;">
+              We use 4000 simulation Digital Cousin (DC) demos and vary the number of real demos from 40 to 400 on task MultiTaskPnP. The results show that our co-training recipe remains beneficial in data-rich settings.
+            </p>
           </div>
         </div>
-    </div>
+      </div>
   </div>
-</section> -->
+</section>
 
 
 
@@ -344,13 +342,13 @@
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/cup_sim.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Cup PnP Digital Cousin</p>
+              <p style="text-align: center; font-size: 18px">Cup PnP (Digital Cousin)</p>
             </div>
           </div>
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/cup_real.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Cup PnP Real Demonstrations</p>
+              <p style="text-align: center; font-size: 18px">Cup PnP (Real Demonstrations)</p>
             </div>
           </div>
         </div>
@@ -359,13 +357,13 @@
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/milk_sim.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Milk Box PnP Digital Cousin</p>
+              <p style="text-align: center; font-size: 18px">Milk Box PnP (Digital Cousin)</p>
             </div>
           </div>
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/milk_real.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Milk Box PnP Real Demonstrations</p>
+              <p style="text-align: center; font-size: 18px">Milk Box PnP (Real Demonstrations)</p>
             </div>
           </div>
         </div>
@@ -375,13 +373,13 @@
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/pour_sim.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Pour PnP Digital Cousin</p>
+              <p style="text-align: center; font-size: 18px">Pour PnP (Digital Cousin)</p>
             </div>
           </div>
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/pour_real.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Pour PnP Real Demonstrations</p>
+              <p style="text-align: center; font-size: 18px">Pour PnP (Real Demonstrations)</p>
             </div>
           </div>
         </div>
@@ -391,13 +389,13 @@
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/bimanual_sim.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Bimanual PnP Digital Cousin</p>
+              <p style="text-align: center; font-size: 18px">Bimanual PnP (Digital Cousin)</p>
             </div>
           </div>
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/bimanual_real.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Bimanual PnP Real Demonstrations</p>
+              <p style="text-align: center; font-size: 18px">Bimanual PnP (Real Demonstrations)</p>
             </div>
           </div>
         </div>
@@ -407,13 +405,13 @@
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/4DC_sim_5x.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Multi-Task PnP Digital Cousin</p>
+              <p style="text-align: center; font-size: 18px">Multi-Task PnP (Digital Cousin)</p>
             </div>
           </div>
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/4DC_real_3x.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Multi-Task PnP Real Demonstrations</p>
+              <p style="text-align: center; font-size: 18px">Multi-Task PnP (Real Demonstrations)</p>
             </div>
           </div>
         </div>
@@ -760,7 +758,7 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-three-quarters">
-          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>We conduct a study to understand which dataset composition factors in the simulation and real-world datasets matter the most, resulting in our simple recipe</strong></h3>
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Our Simple Recipe for Effective Sim-and-Real Co-Training</strong></h3>
         </div>
       </div>
     </div>
@@ -773,11 +771,15 @@
     <div class="columns is-centered">
       <div class="column is-three-quarters">
         
-        <p style="text-align: left; font-size: 20px;"><strong>Based on our empirical findings, we provide a set of recommendations to help practitioners reap the benefits of co-training with synthetic simulation data.</strong></p>
-        <p style="text-align: left; font-size: 20px;">• <strong>Task and scene composition.</strong> The best results are achieved when co-training with simulation data from task-aware digital cousins, where the task and scene compositions closely resemble those of real-world tasks. However, co-training with large multi-task prior simulation data—where task and scene compositions differ from real-world settings—can still be beneficial.</p>
-        <p style="text-align: left; font-size: 20px;">• <strong>Object composition and initialization distribution.</strong> Incorporating diverse objects and varying their placements in simulation data helps real-world policies generalize to unseen scenarios.</p>
-        <p style="text-align: left; font-size: 20px;">• <strong>Alignment between the task-aware digital cousin and the real world.</strong> It is essential for the simulation task to share the same definition and success criteria as its real-world counterpart. Additionally, ensuring similar camera viewpoints between simulation and real-world settings improves performance, though perfect alignment is not necessary.</p>
-        <p style="text-align: left; font-size: 20px;">• <strong>Co-training hyperparameters.</strong> Utilize a sufficiently large amount of simulation data (e.g., orders of magnitude more than real-world data). Additionally, careful tuning of the co-training ratio is critical for optimizing performance.</p>
+        <div style="background-color: #f5f5f5; border-radius: 15px; padding: 20px; margin: 0 auto 30px auto; max-width: 90%;">
+          <p style="text-align: left; font-size: 20px;"><strong>Based on our empirical study, we recommend:</strong></p>
+          <p style="text-align: left; font-size: 20px;">• <strong>Task and scene composition.</strong> Use task-aware digital cousins with similar task and scene compositions to real-world tasks. Multi-task prior simulation data can still help even with different compositions.</p>
+          <p style="text-align: left; font-size: 20px;">• <strong>Object composition and initialization.</strong> Incorporate diverse objects and varying placements in simulation to improve generalization.</p>
+          <p style="text-align: left; font-size: 20px;">• <strong>Task-aware digital cousin alignment.</strong> Ensure simulation tasks share the same definition and success criteria as real-world tasks. Similar camera viewpoints help, but perfect alignment isn't necessary.</p>
+          <p style="text-align: left; font-size: 20px;">• <strong>Co-training hyperparameters.</strong> Use significantly more simulation data than real-world data and carefully tune the co-training ratio.</p>
+        </div>
+        
+        <p style="text-align: left; font-size: 20px;">We conducted a comprehensive study to understand which dataset composition factors in simulation and real-world datasets matter the most, resulting in the recipe above. Our findings help practitioners effectively leverage synthetic simulation data for real-world robotics tasks.</p>
 
         <!-- <div class="column is-three-quarters">
           <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;"><strong>Data Composition</strong></p>
@@ -826,7 +828,6 @@
             <p style="text-align: center; font-size: 16px; margin-top: 18px;"><strong>Visualization of the default and aligned camera views.</strong> To evaluate the importance of this alignment, we rendered data using the default, unaligned camera view and trained policies on the resulting misaligned simulation data. The results indicate a significant drop in performance compared to policies co-trained with properly aligned DC data. On the Panda arm CounterToSinkPnP task, the cotraining success rate dropped from 67% to 56%, while in the GR-1 humanoid CupPnP task, it declined from 95% to 70%. Notably, the aligned camera is not strictly identical to the real-world camera.</p>
           </div>
         </div>
-        
 
 
         <!-- <div class="column is-three-quarters">
