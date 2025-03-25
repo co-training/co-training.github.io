@@ -195,7 +195,6 @@
     </div>
   </section>
 
-
   <!-- full overview video -->
   <section class="section">
     <div class="container">
@@ -203,11 +202,13 @@
         <div class="column is-three-quarters">
           <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;"><strong>This work presents a simple recipe for effectively utilizing simulation data for real-world vision-based manipulation tasks.</strong></p>
           
-          <video class="center" playsinline autoplay loop muted controls src="./resources/placeeholder.mp4" width="100%" style="border-radius:20px;"></video>
+          <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">We collect a modest number of demonstrations in real-world environments and use existing simulation frameworks to generate large-scale synthetic data. Across multiple embodiments and tasks that we study, simulation can offer a substantial improvement in performance even when the simulation and real-world data have significant discrepancies.</p>
           
-          <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">We collect a modest number of demonstrations in real-world environments and use existing simulation frameworks and data generation tools to generate large-scale synthetic data in simulation. Across multiple embodiments and tasks that we study, simulation can offer a substantial improvement in performance even without perfect alignment to the real world. Furthermore, co-training can aid transfer even when the simulation and real-world data have significant discrepancies.</p>
+          <video class="center" playsinline autoplay loop muted controls src="./resources/twitter_video.mp4" width="100%" style="border-radius:20px;"></video>
+          
           <br>
           <div style="background-color: #f5f5f5; border-radius: 15px; padding: 20px; margin: 0 auto 30px auto; max-width: 90%;">
+            <p style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 20px;">A Simple Recipe for Sim-and-Real Co-Training</p>
             <p style="text-align: left; font-size: 20px;"><strong>Based on our empirical study, we recommend:</strong></p>
             <p style="text-align: left; font-size: 20px;">• <strong>Task and scene composition.</strong> Use task-aware digital cousins with similar task and scene compositions to real-world tasks. Multi-task prior simulation data can still help even with different compositions.</p>
             <p style="text-align: left; font-size: 20px;">• <strong>Object composition and initialization.</strong> Incorporate diverse objects and varying placements in simulation to improve generalization.</p>
@@ -959,7 +960,7 @@
 
           <video class="center" playsinline autoplay loop muted controls src="./resources/vid2vid/vid2vid_t2v.mp4" width="100%" style="border-radius:20px;"></video>
           
-          <br>
+          <div style="margin-top: 30px; margin-bottom: 30px;"></div>
           <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We also explore an alternative strategy, where instead of using the RGB simulation video as noised input for T2V, we use the depth or segmentation video as the intermediate modality, where they are used as a conditioning for Video-to-Video (V2V) diffusion. This reduces the requirement of visual fidelity of the simulation videos, and we believe it opens up exciting opportunities for future research.</p>
 
           <video class="center" playsinline autoplay loop muted controls src="./resources/vid2vid/vid2vid_v2v.mp4" width="100%" style="border-radius:20px;"></video>
