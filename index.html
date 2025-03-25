@@ -205,8 +205,8 @@
           
           <video class="center" playsinline autoplay loop muted controls src="./resources/placeeholder.mp4" width="100%" style="border-radius:20px;"></video>
           
-          <p style="text-align: center; font-size: 22px; margin-top: 20px;">We collect a modest number of demonstrations in real-world environments and use existing simulation frameworks and data generation tools to generate large-scale synthetic data in simulation. Across multiple embodiments and tasks that we study, simulation can offer a substantial improvement in performance even without perfect alignment to the real world. Furthermore, co-training can aid transfer even when the simulation and real-world data have significant discrepancies.</p>
-
+          <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">We collect a modest number of demonstrations in real-world environments and use existing simulation frameworks and data generation tools to generate large-scale synthetic data in simulation. Across multiple embodiments and tasks that we study, simulation can offer a substantial improvement in performance even without perfect alignment to the real world. Furthermore, co-training can aid transfer even when the simulation and real-world data have significant discrepancies.</p>
+          <br>
           <div style="background-color: #f5f5f5; border-radius: 15px; padding: 20px; margin: 0 auto 30px auto; max-width: 90%;">
             <p style="text-align: left; font-size: 20px;"><strong>Based on our empirical study, we recommend:</strong></p>
             <p style="text-align: left; font-size: 20px;">• <strong>Task and scene composition.</strong> Use task-aware digital cousins with similar task and scene compositions to real-world tasks. Multi-task prior simulation data can still help even with different compositions.</p>
@@ -952,16 +952,14 @@
         <div class="column is-three-quarters">
           <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Given our observation that incorporating task-aware digital cousins, such as camera viewpoint alignment, enhances performance, we pose a follow-up question: Would improving visual fidelity by making simulation rendering closer to reality enhance co-training?</p>
           
-          <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We fine-tune CogVideo-X, a state-of-the art video diffusion model, on CupPnP real demonstration videos in the Text2Video (T2V) modality. This enables the model to generate realistic-looking videos of a robot performing the task from pure Gaussian noise.</p>
+          <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We fine-tune CogVideo-X, a video diffusion model, on CupPnP real demonstration videos in the Text2Video (T2V) modality. To adapt the model for style transfer on simulation videos—preserving object positions while enhancing visual realism—we adopt a simple strategy: instead of generating videos from pure noise, we introduce noise into reference simulation videos and use them as initialization for video diffusion. Lower noise levels retain more of the original simulation textures, producing outputs closer to the inputs, while higher noise levels result in more realistic appearances but may distort object poses. </p>
 
 
-          <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">To adapt the model for style transfer on simulation videos—preserving object positions while enhancing visual realism—we adopt a simple strategy: instead of generating videos from pure noise, we introduce noise into reference simulation videos and use them as initialization for video diffusion. By adjusting the noise strength parameter, we control the extent of noise added and the diffusion starting timestep. Lower noise levels retain more of the original simulation textures, producing outputs closer to the inputs, while higher noise levels result in more realistic appearances but may distort object poses. </p>
-
-
-          <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We find that Vid2Vid-enhanced visual fidelity leads to a 5–10\% average improvement in policy performance, with the most significant benefits occurring when the number of simulation or real-world trajectories is low. </p>
+          <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We find that Vid2Vid-enhanced visual fidelity leads to a 5-10% average improvement in policy performance, with the most significant benefits occurring when the number of simulation or real-world trajectories is low. </p>
 
           <video class="center" playsinline autoplay loop muted controls src="./resources/vid2vid/vid2vid_t2v.mp4" width="100%" style="border-radius:20px;"></video>
           
+          <br>
           <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We also explore an alternative strategy, where instead of using the RGB simulation video as noised input for T2V, we use the depth or segmentation video as the intermediate modality, where they are used as a conditioning for Video-to-Video (V2V) diffusion. This reduces the requirement of visual fidelity of the simulation videos, and we believe it opens up exciting opportunities for future research.</p>
 
           <video class="center" playsinline autoplay loop muted controls src="./resources/vid2vid/vid2vid_v2v.mp4" width="100%" style="border-radius:20px;"></video>
@@ -978,10 +976,10 @@
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
     <pre><code>@article{maddukuri2025simandreal,
-      title     = {Sim-and-Real Co-Training: A Simple Recipe for Vision-Based Robotic Manipulation},
-      author    = {Maddukuri, Abhiram and Jiang, Zhenyu and Chen, Lawrence Yunliang and Nasiriany, Soroush and Xie, Yuqi and Fang, Yu and Huang, Wenqi and Wang, Zu and Xu, Zhenjia and Chernyadev, Nikita and Reed, Scott and Goldberg, Ken and Mandlekar, Ajay and Fan, Linxi and Zhu, Yuke},
-      journal={arXiv preprint},
-      year={2025}
+      title   = {Sim-and-Real Co-Training: A Simple Recipe for Vision-Based Robotic Manipulation},
+      author  = {Maddukuri, Abhiram and Jiang, Zhenyu and Chen, Lawrence Yunliang and Nasiriany, Soroush and Xie, Yuqi and Fang, Yu and Huang, Wenqi and Wang, Zu and Xu, Zhenjia and Chernyadev, Nikita and Reed, Scott and Goldberg, Ken and Mandlekar, Ajay and Fan, Linxi and Zhu, Yuke},
+      journal = {arXiv preprint},
+      year    = {2025}
     }</code></pre>
     <!-- <pre><code>@inproceedings{maddukuri2025simandreal,
       title     = {Sim-and-Real Co-Training: A Simple Recipe for Vision-Based Robotic Manipulation},
