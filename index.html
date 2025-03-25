@@ -205,20 +205,28 @@
           
           <video class="center" playsinline autoplay loop muted controls src="./resources/placeeholder.mp4" width="100%" style="border-radius:20px;"></video>
           
-          <p style="text-align: center; font-size: 22px; margin-top: 20px;">We collect a modest number of demonstrations in real-world environments and use existing simulation frameworks and data generation tools to generate large-scale synthetic data in simulation. Across all embodiments and tasks that we study, simulation can offer a substantial improvement in performance even without perfect alignment to the real world. Furthermore, co-training can aid transfer even when the simulation and real-world data have significant discrepancies.</p>
+          <p style="text-align: center; font-size: 22px; margin-top: 20px;">We collect a modest number of demonstrations in real-world environments and use existing simulation frameworks and data generation tools to generate large-scale synthetic data in simulation. Across multiple embodiments and tasks that we study, simulation can offer a substantial improvement in performance even without perfect alignment to the real world. Furthermore, co-training can aid transfer even when the simulation and real-world data have significant discrepancies.</p>
+
+          <div style="background-color: #f5f5f5; border-radius: 15px; padding: 20px; margin: 0 auto 30px auto; max-width: 90%;">
+            <p style="text-align: left; font-size: 20px;"><strong>Based on our empirical study, we recommend:</strong></p>
+            <p style="text-align: left; font-size: 20px;">• <strong>Task and scene composition.</strong> Use task-aware digital cousins with similar task and scene compositions to real-world tasks. Multi-task prior simulation data can still help even with different compositions.</p>
+            <p style="text-align: left; font-size: 20px;">• <strong>Object composition and initialization.</strong> Incorporate diverse objects and varying placements in simulation to improve generalization.</p>
+            <p style="text-align: left; font-size: 20px;">• <strong>Task-aware digital cousin alignment.</strong> Ensure simulation tasks share the same definition and success criteria as real-world tasks. Similar camera viewpoints help, but perfect alignment isn't necessary.</p>
+            <p style="text-align: left; font-size: 20px;">• <strong>Co-training hyperparameters.</strong> Use significantly more simulation data than real-world data and carefully tune the co-training ratio.</p>
+          </div>
+
         </div>
       </div>
     </div>
   </section>
 
   <br>
-  <br>
   <section class="hero is-light is-small">
   <div class="hero-body">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-three-quarters">
-        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Our sim-and-real co-training strategy significantly boosts real-only performance</strong></h3>
+        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Our sim-and-real co-training strategy significantly boosts performance compared to policies trained only on real data</strong></h3>
       </div>
     </div>
   </div>
@@ -241,7 +249,7 @@
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_dc_overlaid.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Trained on Real-Only + Task-Aware Digital Cousin</p>
+              <p style="text-align: center; font-size: 18px">Trained on Real + Task-Aware Digital Cousin</p>
               <p style="text-align: center; font-size: 16px">Success Rate: 71%</p>
             </div>
           </div>
@@ -251,14 +259,14 @@
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_prior_overlaid.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Trained on Real-Only + Prior Simulation Data</p>
+              <p style="text-align: center; font-size: 18px">Trained on Real + Prior Simulation Data</p>
               <p style="text-align: center; font-size: 16px">Success Rate: 69%</p>
             </div>
           </div>
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_dc_prior_overlaid.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Trained on Real-Only + Prior Simulation Data + Task-Aware Digital Cousin</p>
+              <p style="text-align: center; font-size: 18px">Trained on Real + Prior Simulation Data + Task-Aware Digital Cousin</p>
               <p style="text-align: center; font-size: 16px">Success Rate: 76%</p>
             </div>
           </div>
@@ -267,15 +275,6 @@
       </div> 
     </div>
 
-
-    <div class="columns is-centered">
-      <div class="column is-three-quarters">
-        <img src="./resources/main_table.png" width="100%" style="border-radius:20px;">
-        <p style="text-align: center; font-size: 16px; margin-top: 15px;">
-          We compare co-training with different simulation data on six tasks across two robots. Co-training with Prior consistently boosts performance over policies trained on real data only. On top of these results, adding better aligned DC usually further improves the performance.
-        </p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -301,7 +300,9 @@
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-three-quarters">
-        <p style="text-align: center; font-size: 20px; margin-bottom: 20px;">Recent advancements in robot learning suggest that policies trained with large-scale, multi-task real robot data are more robust and generalizable. To evaluate how far we can get with just real data, we designed a MultiTaskPnP task on the humanoid, where the robot needs to pick an object from one container and place it into another, with four different source-target container combinations. We collected 400 real demonstrations and trained a policy on them. The results below show that the policy performs poorly, even with 400 real demonstrations. In contrast, our co-training strategy consistently outperforms the real-only policy, demonstrating the effectiveness of our co-training strategy.</p>
+        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Recent advancements in robot learning suggest that policies trained with large-scale, multi-task real robot data are more robust and generalizable. To evaluate how far we can get with just real data, we designed a MultiTaskPnP task on the humanoid, where the robot needs to pick an object from one container and place it into another, with four different source-target container combinations. We collected 400 real demonstrations and trained a policy on them.</p>
+        
+        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">The results below show that the policy performs poorly, even with 400 real demonstrations. In contrast, our co-training strategy consistently outperforms the real-only policy, demonstrating the effectiveness of our co-training strategy.</p>
 
         <div class="columns is-centered">
           <div class="column">
@@ -337,7 +338,7 @@
     <div class="columns is-centered">
       <div class="column is-three-quarters">
         
-        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Creating a perfect digital twin copy of the real-world task is challenging, requiring extensive manual tuning, system identification, and sourcing identical 3D assets. Instead, we opt to create tasks in simulation that share the same task semantics, namely the object categories in the environment and the same behaviors. We call these <strong>task-aware digital cousins</strong>.</p>
+        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Creating a perfect digital twin copy of the real-world task is challenging, requiring extensive manual tuning, system identification, and sourcing identical 3D assets. Instead, we opt to create tasks in simulation that <u>share the same task semantics</u>, namely the object categories in the environment and the same behaviors. We call these <strong>task-aware digital cousins</strong>.</p>
 
         <div class="columns is-centered">
           <div class="column is-half">
@@ -445,7 +446,7 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-three-quarters">
-          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Surprisingly, our co-training strategy can also make use of prior-sim datasets, that have significantly more diversity and even less alignment and tuning</strong></h3>
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Surprisingly, our co-training strategy can also make use of task-agnostic prior simulation datasets, which have significantly more diversity and even less alignment and tuning</strong></h3>
         </div>
       </div>
     </div>
@@ -566,6 +567,17 @@
             </div>
           </div>
           
+          <div class="columns is-centered">
+            <div class="column is-three-quarters">
+              <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Sim-and-real co-training boosted perf by 37.9% on average across 6 tasks on 2 embodiments</p>
+      
+              <img src="./resources/main_table.png" width="100%" style="border-radius:20px;">
+              <p style="text-align: center; font-size: 16px; margin-top: 15px;">
+                We compare co-training with different simulation data on six tasks across two robots. Co-training with Prior consistently boosts performance over policies trained on real data only. On top of these results, adding better aligned DC usually further improves the performance.
+              </p>
+            </div>
+          </div>
+
         </div> 
       </div>
     </div>
@@ -637,15 +649,10 @@
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-three-quarters">
-          <!-- <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;">We show that our co-training strategy can generalize to novel object entities and poses unseen in the real-world dataset.</p> -->
+          <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Co-training with simulation data can generalize to novel object entities and poses unseen in the real-world dataset.</p>
       
 
-      <!-- <div class="column is-three-quarters"> -->
         <img src="./resources/results/generalization.png" width="100%" style="border-radius:20px;">
-        <p style="text-align: center; font-size: 16px; margin-top: 15px;">
-          Co-training with simulation data enhances policy robustness to novel object entities and positions.
-        </p>
-      <!-- </div> -->
 
         <p style="text-align: left; font-size: 18px"><strong>Unseen Object</strong></p>
 
@@ -825,13 +832,6 @@
     <div class="columns is-centered">
       <div class="column is-three-quarters">
         
-        <div style="background-color: #f5f5f5; border-radius: 15px; padding: 20px; margin: 0 auto 30px auto; max-width: 90%;">
-          <p style="text-align: left; font-size: 20px;"><strong>Based on our empirical study, we recommend:</strong></p>
-          <p style="text-align: left; font-size: 20px;">• <strong>Task and scene composition.</strong> Use task-aware digital cousins with similar task and scene compositions to real-world tasks. Multi-task prior simulation data can still help even with different compositions.</p>
-          <p style="text-align: left; font-size: 20px;">• <strong>Object composition and initialization.</strong> Incorporate diverse objects and varying placements in simulation to improve generalization.</p>
-          <p style="text-align: left; font-size: 20px;">• <strong>Task-aware digital cousin alignment.</strong> Ensure simulation tasks share the same definition and success criteria as real-world tasks. Similar camera viewpoints help, but perfect alignment isn't necessary.</p>
-          <p style="text-align: left; font-size: 20px;">• <strong>Co-training hyperparameters.</strong> Use significantly more simulation data than real-world data and carefully tune the co-training ratio.</p>
-        </div>
         
         <p style="text-align: left; font-size: 20px;">We conducted a comprehensive study to understand which dataset composition factors in simulation and real-world datasets matter the most, resulting in the recipe above. Our findings help practitioners effectively leverage synthetic simulation data for real-world robotics tasks.</p>
 
@@ -931,19 +931,69 @@
 </section>
 
 
+
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Improving Visual Fidelity with Vid2Vid</strong></h3>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Given our observation that incorporating task-aware digital cousins, such as camera viewpoint alignment, enhances performance, we pose a follow-up question: Would improving visual fidelity by making simulation rendering closer to reality enhance co-training?</p>
+          
+          <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We fine-tune CogVideo-X, a state-of-the art video diffusion model, on CupPnP real demonstration videos in the Text2Video (T2V) modality. This enables the model to generate realistic-looking videos of a robot performing the task from pure Gaussian noise.</p>
+
+
+          <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">To adapt the model for style transfer on simulation videos—preserving object positions while enhancing visual realism—we adopt a simple strategy: instead of generating videos from pure noise, we introduce noise into reference simulation videos and use them as initialization for video diffusion. By adjusting the noise strength parameter, we control the extent of noise added and the diffusion starting timestep. Lower noise levels retain more of the original simulation textures, producing outputs closer to the inputs, while higher noise levels result in more realistic appearances but may distort object poses. </p>
+
+
+          <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We find that Vid2Vid-enhanced visual fidelity leads to a 5–10\% average improvement in policy performance, with the most significant benefits occurring when the number of simulation or real-world trajectories is low. </p>
+
+          <video class="center" playsinline autoplay loop muted controls src="./resources/vid2vid/vid2vid_t2v.mp4" width="100%" style="border-radius:20px;"></video>
+          
+          <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We also explore an alternative strategy, where instead of using the RGB simulation video as noised input for T2V, we use the depth or segmentation video as the intermediate modality, where they are used as a conditioning for Video-to-Video (V2V) diffusion. This reduces the requirement of visual fidelity of the simulation videos, and we believe it opens up exciting opportunities for future research.</p>
+
+          <video class="center" playsinline autoplay loop muted controls src="./resources/vid2vid/vid2vid_v2v.mp4" width="100%" style="border-radius:20px;"></video>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@inproceedings{maddukuri2025simandreal,
+    <pre><code>@article{maddukuri2025simandreal,
       title     = {Sim-and-Real Co-Training: A Simple Recipe for Vision-Based Robotic Manipulation},
       author    = {Maddukuri, Abhiram and Jiang, Zhenyu and Chen, Lawrence Yunliang and Nasiriany, Soroush and Xie, Yuqi and Fang, Yu and Huang, Wenqi and Wang, Zu and Xu, Zhenjia and Chernyadev, Nikita and Reed, Scott and Goldberg, Ken and Mandlekar, Ajay and Fan, Linxi and Zhu, Yuke},
+      journal={arXiv preprint},
+      year={2025}
+    }</code></pre>
+    <!-- <pre><code>@inproceedings{maddukuri2025simandreal,
+      title     = {Sim-and-Real Co-Training: A Simple Recipe for Vision-Based Robotic Manipulation},
+      author    = {Maddukuri, Abhiram and Jiang, Zhenyu and Chen, Lawrence Yunliang and Nasiriany, Soroush and Xie, Yuqi and Fang, Yu and Huang, Wenqi and Wang, Zu and Xu, Zhenjia and Chernyadev, Nikita and Reed, Scott and Goldberg, Ken and Mandlekar, Ajay and Fan, Linxi and Zhu, Yuke},
+      journal={arXiv preprint arXiv:2302.12915},
       booktitle = {preprint},
       year      = {2025}
 }
-    </code></pre>
+    </code></pre> -->
   </div>
 </section>
-  <!-- booktitle = {TODO}, -->
+
 
 
 <section class="section" id="Acknowledgements">
