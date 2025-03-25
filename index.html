@@ -299,12 +299,12 @@
 
 <section class="section">
   <div class="container">
+    <div class="columns is-centered">
       <div class="column is-three-quarters">
-
-        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Recent advancements in robot learning suggest that policies trained with large-scale, multi-task real robot data are more robust and generalizable. To evaluate how far we can get with just real data, we designed a MultiTaskPnP task on the humanoid, where the robot needs to pick an object from one container and place it into another, with four different source-target container combinations. We collected 400 real demonstrations and trained a policy on them. The results below show that the policy performs poorly, even with 400 real demonstrations. In contrast, our co-training strategy consistently outperforms the real-only policy, demonstrating the effectiveness of our co-training strategy.</p>
+        <p style="text-align: center; font-size: 20px; margin-bottom: 20px;">Recent advancements in robot learning suggest that policies trained with large-scale, multi-task real robot data are more robust and generalizable. To evaluate how far we can get with just real data, we designed a MultiTaskPnP task on the humanoid, where the robot needs to pick an object from one container and place it into another, with four different source-target container combinations. We collected 400 real demonstrations and trained a policy on them. The results below show that the policy performs poorly, even with 400 real demonstrations. In contrast, our co-training strategy consistently outperforms the real-only policy, demonstrating the effectiveness of our co-training strategy.</p>
 
         <div class="columns is-centered">
-          <div class="column is-three-quarters">
+          <div class="column">
             <img src="./resources/results/ladder_to_the_moon.png" width="100%" style="border-radius:20px;">
             <p style="text-align: center; font-size: 16px; margin-top: 15px;">
               We use 4000 simulation Digital Cousin (DC) demos and vary the number of real demos from 40 to 400 on task MultiTaskPnP. The results show that our co-training recipe remains beneficial in data-rich settings.
@@ -312,6 +312,7 @@
           </div>
         </div>
       </div>
+    </div>
   </div>
 </section>
 
@@ -494,13 +495,13 @@
             <div class="column is-half">
               <div class="video-container">
                 <video class="center" playsinline autoplay loop muted src="./resources/rollout/CounterToSinkDC.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Counter to Sink PnP Digital Cousin</p>
+                <p style="text-align: center; font-size: 18px">Counter to Sink PnP (Digital Cousin Demos)</p>
               </div>
             </div>
             <div class="column is-half">
               <div class="video-container">
                 <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_panda_countertosink.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Co-Training Policy Success Rate: 72%</p>
+                <p style="text-align: center; font-size: 18px">Co-Training Policy (Success Rate: 72%)</p>
               </div>
             </div>
           </div>
@@ -509,13 +510,13 @@
             <div class="column is-half">
               <div class="video-container">
                 <video class="center" playsinline autoplay loop muted src="./resources/rollout/CloseDoorDC.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Close Door Digital Cousin</p>
+                <p style="text-align: center; font-size: 18px">Close Door (Digital Cousin Demos)</p>
               </div>
             </div>
             <div class="column is-half">
               <div class="video-container">
                 <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_panda_closedoor.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Co-Training Policy Success Rate: 100%</p>
+                <p style="text-align: center; font-size: 18px">Co-Training Policy (Success Rate: 100%)</p>
               </div>
             </div>
           </div>
@@ -524,13 +525,13 @@
             <div class="column is-half">
               <div class="video-container">
                 <video class="center" playsinline autoplay loop muted src="./resources/rollout/CounterToCabDC.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Counter to Cabinet PnP Digital Cousin</p>
+                <p style="text-align: center; font-size: 18px">Counter to Cabinet PnP (Digital Cousin Demos)</p>
               </div>
             </div>
             <div class="column is-half">
               <div class="video-container">
                 <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_panda_countertocab.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Co-Training Policy Success Rate: 72%</p>
+                <p style="text-align: center; font-size: 18px">Co-Training Policy (Success Rate: 72%)</p>
               </div>
             </div>
           </div>
@@ -539,21 +540,21 @@
             <div class="column is-one-third">
               <div class="video-container">
                 <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_cup.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Cup PnP</p>
+                <p style="text-align: center; font-size: 18px">Cup PnP (Digital Cousin Demos)</p>
                 <p style="text-align: center; font-size: 16px">Success Rate: 85%</p>
               </div>
             </div>
             <div class="column is-one-third">
               <div class="video-container">
                 <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_milk.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Milk Box PnP</p>
+                <p style="text-align: center; font-size: 18px">Milk Box PnP (Digital Cousin Demos)</p>
                 <p style="text-align: center; font-size: 16px">Success Rate: 80%</p>
               </div>
             </div>
             <div class="column is-one-third">
               <div class="video-container">
                 <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_pour.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Pouring</p>
+                  <p style="text-align: center; font-size: 18px">Pour PnP (Digital Cousin Demos)</p>
                 <p style="text-align: center; font-size: 16px">Success Rate: 90%</p>
               </div>
             </div>
@@ -565,7 +566,7 @@
   </section>
   
 
-<section class="hero is-light is-small">
+<!-- <section class="hero is-light is-small">
   <div class="hero-body">
   <div class="container">
     <div class="columns is-centered">
@@ -589,7 +590,7 @@
         </div>
     </div>
   </div>
-</section>
+</section> -->
   
 <!-- <section class="hero is-light is-small">
   <div class="hero-body">
@@ -629,16 +630,63 @@
 <section class="section">
   <div class="container">
     <div class="columns is-centered">
-
-      <!-- <div class="column is-three-quarters">
-          <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;"></p>
-      </div> -->
-
       <div class="column is-three-quarters">
+          <!-- <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;">We show that our co-training strategy can generalize to novel object entities and poses unseen in the real-world dataset.</p> -->
+      
+
+      <!-- <div class="column is-three-quarters"> -->
         <img src="./resources/results/generalization.png" width="100%" style="border-radius:20px;">
         <p style="text-align: center; font-size: 16px; margin-top: 15px;">
           Co-training with simulation data enhances policy robustness to novel object entities and positions.
         </p>
+      <!-- </div> -->
+
+        <p style="text-align: left; font-size: 18px">Unseen Object</p>
+
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/generalization/cup_novel_obj_baseline_4x.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Real-Only Policy (10%)</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/generalization/cup_novel_obj_cotraining_4x.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Co-Training Policy (80%)</p>
+            </div>
+          </div>
+        </div>
+
+        <p style="text-align: left; font-size: 18px">Novel Object Position</p>
+
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/generalization/cup_novel_pos_baseline_4x.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Real-Only Policy (43%)</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/generalization/cup_novel_pos_cotraining_4x.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Co-Training Policy (100%)</p>
+            </div>
+          </div>
+        </div>
+
+        <p style="text-align: left; font-size: 18px">Novel Object Color</p>
+
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/generalization/different_color_cup_success_4x.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Co-Training Policy (100%)</p>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>
