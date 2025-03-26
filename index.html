@@ -307,7 +307,7 @@
 
         <div class="columns is-centered">
           <div class="column">
-            <img src="./resources/results/ladder_to_the_moon.png" width="100%" style="border-radius:20px;">
+            <img src="./resources/results/ladder_to_the_moon.png" width="70%" style="border-radius:20px;">
             <p style="text-align: center; font-size: 16px; margin-top: 15px;">
               We use 4000 simulation Digital Cousin (DC) demos and vary the number of real demos from 40 to 400 on task MultiTaskPnP. The results show that our co-training recipe remains beneficial in data-rich settings.
             </p>
@@ -333,7 +333,6 @@
   </div>
 </section>
 
-
 <section class="section">
   <div class="container">
     <div class="columns is-centered">
@@ -341,84 +340,93 @@
         
         <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Creating a perfect digital twin copy of the real-world task is challenging, requiring extensive manual tuning, system identification, and sourcing identical 3D assets. Instead, we opt to create tasks in simulation that <u>share the same task semantics</u>, namely the object categories in the environment and the same behaviors. We call these <strong>task-aware digital cousins</strong>.</p>
 
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 15px; padding-left: 20px;"><strong>Cup Pick-and-Place Task</strong></h4>
         <div class="columns is-centered">
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/cup_sim.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Cup PnP (Digital Cousin)</p>
+              <p style="text-align: center; font-size: 18px">Digital Cousin</p>
             </div>
           </div>
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/cup_real.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Cup PnP (Real Demonstrations)</p>
+              <p style="text-align: center; font-size: 18px">Real Demonstrations</p>
             </div>
           </div>
         </div>
         
+        <hr style="margin: 40px 0; border: none; border-top: 1px solid #ddd;">
+        
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 15px; padding-left: 20px;"><strong>Milk Box Pick-and-Place Task</strong></h4>
         <div class="columns is-centered">
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/milk_sim.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Milk Box PnP (Digital Cousin)</p>
+              <p style="text-align: center; font-size: 18px">Digital Cousin</p>
             </div>
           </div>
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/milk_real.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Milk Box PnP (Real Demonstrations)</p>
+              <p style="text-align: center; font-size: 18px">Real Demonstrations</p>
             </div>
           </div>
         </div>
         
-
+        <hr style="margin: 40px 0; border: none; border-top: 1px solid #ddd;">
+        
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 15px; padding-left: 20px;"><strong>Pouring Task</strong></h4>
         <div class="columns is-centered">
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/pour_sim.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Pour PnP (Digital Cousin)</p>
+              <p style="text-align: center; font-size: 18px">Digital Cousin</p>
             </div>
           </div>
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/pour_real.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Pour PnP (Real Demonstrations)</p>
+              <p style="text-align: center; font-size: 18px">Real Demonstrations</p>
             </div>
           </div>
         </div>
 
+        <hr style="margin: 40px 0; border: none; border-top: 1px solid #ddd;">
 
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 15px; padding-left: 20px;"><strong>Bimanual Pick-and-Place Task</strong></h4>
         <div class="columns is-centered">
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/bimanual_sim.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Bimanual PnP (Digital Cousin)</p>
+              <p style="text-align: center; font-size: 18px">Digital Cousin</p>
             </div>
           </div>
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/bimanual_real.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Bimanual PnP (Real Demonstrations)</p>
+              <p style="text-align: center; font-size: 18px">Real Demonstrations</p>
             </div>
           </div>
         </div>
 
+        <hr style="margin: 40px 0; border: none; border-top: 1px solid #ddd;">
 
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 15px; padding-left: 20px;"><strong>Multi-Task Pick-and-Place</strong></h4>
         <div class="columns is-centered">
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/4DC_sim_5x.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Multi-Task PnP (Digital Cousin)</p>
+              <p style="text-align: center; font-size: 18px">Digital Cousin</p>
             </div>
           </div>
           <div class="column is-half">
             <div class="video-container">
               <video class="center" playsinline autoplay loop muted src="./resources/dc_vs_real_comparison/4DC_real_3x.mp4" style="border-radius:10px;"></video>
-              <p style="text-align: center; font-size: 18px">Multi-Task PnP (Real Demonstrations)</p>
+              <p style="text-align: center; font-size: 18px">Real Demonstrations</p>
             </div>
           </div>
         </div>
-
 
       </div> 
     </div>
@@ -495,75 +503,90 @@
 
           <div class="columns is-centered">
             <div class="column is-half">
-              <div class="video-container">
-                <video class="center" playsinline autoplay loop muted src="./resources/rollout/CounterToSinkDC.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Counter to Sink PnP (Digital Cousin Demos)</p>
-              </div>
-            </div>
-            <div class="column is-half">
-              <div class="video-container">
-                <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_panda_countertosink.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Co-Training Policy (Success Rate: 72%)</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="columns is-centered">
-            <div class="column is-half">
-              <div class="video-container">
-                <video class="center" playsinline autoplay loop muted src="./resources/rollout/CloseDoorDC.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Close Door (Digital Cousin Demos)</p>
-              </div>
-            </div>
-            <div class="column is-half">
-              <div class="video-container">
-                <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_panda_closedoor.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Co-Training Policy (Success Rate: 100%)</p>
+              <div class="video-container" style="background: #f8f8f8; padding: 15px; border-radius: 15px; margin-bottom: 20px;">
+                <h4 style="text-align: center; font-size: 20px; margin-bottom: 15px; color: #333;">Counter to Sink PnP</h4>
+                <div class="columns is-centered">
+                  <div class="column is-half">
+                    <video class="center" playsinline autoplay loop muted src="./resources/rollout/CounterToSinkDC.mp4" style="border-radius:10px; max-width: 100%;"></video>
+                    <p style="text-align: center; font-size: 16px; margin-top: 10px">Digital Cousin Demo</p>
+                  </div>
+                  <div class="column is-half">
+                    <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_panda_countertosink.mp4" style="border-radius:10px; max-width: 100%;"></video>
+                    <p style="text-align: center; font-size: 16px; margin-top: 10px">Co-Training Policy (72%)</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="columns is-centered">
             <div class="column is-half">
-              <div class="video-container">
-                <video class="center" playsinline autoplay loop muted src="./resources/rollout/CounterToCabDC.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Counter to Cabinet PnP (Digital Cousin Demos)</p>
-              </div>
-            </div>
-            <div class="column is-half">
-              <div class="video-container">
-                <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_panda_countertocab.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Co-Training Policy (Success Rate: 72%)</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="columns is-centered">
-            <div class="column is-half">
-              <div class="video-container">
-                <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_cup.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Cup PnP (Co-Training Policy)</p>
-              </div>
-            </div>
-            <div class="column is-half">
-              <div class="video-container">
-                <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_milk.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Milk Box PnP (Co-Training Policy)</p>
+              <div class="video-container" style="background: #f8f8f8; padding: 15px; border-radius: 15px; margin-bottom: 20px;">
+                <h4 style="text-align: center; font-size: 20px; margin-bottom: 15px; color: #333;">Close Door</h4>
+                <div class="columns is-centered">
+                  <div class="column is-half">
+                    <video class="center" playsinline autoplay loop muted src="./resources/rollout/CloseDoorDC.mp4" style="border-radius:10px; max-width: 100%;"></video>
+                    <p style="text-align: center; font-size: 16px; margin-top: 10px">Digital Cousin Demo</p>
+                  </div>
+                  <div class="column is-half">
+                    <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_panda_closedoor.mp4" style="border-radius:10px; max-width: 100%;"></video>
+                    <p style="text-align: center; font-size: 16px; margin-top: 10px">Co-Training Policy (100%)</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <div class="columns is-centered">
             <div class="column is-half">
-              <div class="video-container">
-                <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_pour.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Pour (Co-Training Policy)</p>
+              <div class="video-container" style="background: #f8f8f8; padding: 15px; border-radius: 15px; margin-bottom: 20px;">
+                <h4 style="text-align: center; font-size: 20px; margin-bottom: 15px; color: #333;">Counter to Cabinet PnP</h4>
+                <div class="columns is-centered">
+                  <div class="column is-half">
+                    <video class="center" playsinline autoplay loop muted src="./resources/rollout/CounterToCabDC.mp4" style="border-radius:10px; max-width: 100%;"></video>
+                    <p style="text-align: center; font-size: 16px; margin-top: 10px">Digital Cousin Demo</p>
+                  </div>
+                  <div class="column is-half">
+                    <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_panda_countertocab.mp4" style="border-radius:10px; max-width: 100%;"></video>
+                    <p style="text-align: center; font-size: 16px; margin-top: 10px">Co-Training Policy (72%)</p>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+
+          <div class="columns is-centered">
             <div class="column is-half">
-              <div class="video-container">
-                <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_cube.mp4" style="border-radius:10px;"></video>
-                <p style="text-align: center; font-size: 18px">Bimanual Cube PnP (Co-Training Policy)</p>
+              <div class="video-container" style="background: #f8f8f8; padding: 15px; border-radius: 15px; margin-bottom: 20px;">
+                <h4 style="text-align: center; font-size: 20px; margin-bottom: 15px; color: #333;">Humanoid Tasks</h4>
+                <div class="columns is-centered">
+                  <div class="column is-half">
+                    <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_cup.mp4" style="border-radius:10px; max-width: 100%;"></video>
+                    <p style="text-align: center; font-size: 16px; margin-top: 10px">Cup PnP</p>
+                  </div>
+                  <div class="column is-half">
+                    <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_milk.mp4" style="border-radius:10px; max-width: 100%;"></video>
+                    <p style="text-align: center; font-size: 16px; margin-top: 10px">Milk Box PnP</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="columns is-centered">
+            <div class="column is-half">
+              <div class="video-container" style="background: #f8f8f8; padding: 15px; border-radius: 15px; margin-bottom: 20px;">
+                <h4 style="text-align: center; font-size: 20px; margin-bottom: 15px; color: #333;">More Humanoid Tasks</h4>
+                <div class="columns is-centered">
+                  <div class="column is-half">
+                    <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_pour.mp4" style="border-radius:10px; max-width: 100%;"></video>
+                    <p style="text-align: center; font-size: 16px; margin-top: 10px">Pour</p>
+                  </div>
+                  <div class="column is-half">
+                    <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_cube.mp4" style="border-radius:10px; max-width: 100%;"></video>
+                    <p style="text-align: center; font-size: 16px; margin-top: 10px">Bimanual Cube PnP</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
