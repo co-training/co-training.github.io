@@ -320,6 +320,36 @@
 
 
 
+
+  
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Sim-and-Real Co-Training Pipeline</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <img src="./resources/pipeline.png" width="100%" style="border-radius:20px;">
+        <p style="text-align: left; font-size: 16px; margin-top: 15px;">
+          <strong>Sim-and-Real Co-training Pipeline.</strong> <strong>Left:</strong> We start with a real-world task in mind and some prior simulation data. <strong>Middle:</strong> Given real-world tasks and prior simulation data, we can build additional digital cousin tasks that share semantic similarities with their real-world counterparts but may still have discrepancies in visual and physical features. From here we can consolidate prior simulation data, digital cousin data, and real world data. <strong>Right:</strong> We co-train on a mixture of real-world and simulation data. We sample simulation data according to a sampling ratio of &alpha;, and as we show in experiments, this sample ratio is crucial. After training the policy, we deploy the resulting policy directly in the real world.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
   
 <section class="hero is-light is-small">
   <div class="hero-body">
@@ -578,7 +608,7 @@
 
           <div class="columns is-centered">
             <div class="column is-9">
-              <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Quantitatively, sim-and-real co-training boosts policy performance by 37.9% on average across 6 tasks on 2 embodiments</p>
+              <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Quantitatively, sim-and-real co-training boosts policy performance by 37.9% on average across 6 tasks on 2 embodiments:</p>
     
               <img src="./resources/main_table.png" width="100%" style="border-radius:20px;">
               <p style="text-align: center; font-size: 16px; margin-top: 15px;">
@@ -939,35 +969,6 @@
   </div>
 </section>
 
-
-
-
-
-  
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-three-quarters">
-          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Sim-and-Real Co-Training Pipeline</strong></h3>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-three-quarters">
-        <img src="./resources/pipeline.png" width="100%" style="border-radius:20px;">
-        <p style="text-align: center; font-size: 16px; margin-top: 15px;">
-          <strong>Sim-and-Real Co-training Pipeline.</strong> <strong>Left:</strong> We start with a real-world task in mind and some prior simulation data. <strong>Middle:</strong> Given real-world tasks and prior simulation data, we can build additional digital cousin tasks that share semantic similarities with their real-world counterparts but may still have discrepancies in visual and physical features. From here we can consolidate prior simulation data, digital cousin data, and real world data. <strong>Right:</strong> We co-train on a mixture of real-world and simulation data. We sample simulation data according to a sampling ratio of &alpha;, and as we show in experiments, this sample ratio is crucial. After training the policy, we deploy the resulting policy directly in the real world.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
 
 
 
