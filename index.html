@@ -340,7 +340,7 @@
         
         <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Creating a perfect digital twin copy of the real-world task is challenging, requiring extensive manual tuning, system identification, and sourcing identical 3D assets. Instead, we opt to create tasks in simulation that <u>share the same task semantics</u>, namely the object categories in the environment and the same behaviors. We call these <strong>task-aware digital cousins</strong>.</p>
 
-        <h4 style="text-align: left; font-size: 22px; margin-bottom: 15px; padding-left: 20px;"><strong>Cup Pick-and-Place Task</strong></h4>
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 10px; padding-left: 20px;"><strong>Cup Pick-and-Place Task</strong></h4>
         <div class="columns is-centered">
           <div class="column is-half">
             <div class="video-container">
@@ -356,9 +356,9 @@
           </div>
         </div>
         
-        <hr style="margin: 40px 0; border: none; border-top: 1px solid #ddd;">
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
         
-        <h4 style="text-align: left; font-size: 22px; margin-bottom: 15px; padding-left: 20px;"><strong>Milk Box Pick-and-Place Task</strong></h4>
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 10px; padding-left: 20px;"><strong>Milk Box Pick-and-Place Task</strong></h4>
         <div class="columns is-centered">
           <div class="column is-half">
             <div class="video-container">
@@ -374,9 +374,9 @@
           </div>
         </div>
         
-        <hr style="margin: 40px 0; border: none; border-top: 1px solid #ddd;">
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
         
-        <h4 style="text-align: left; font-size: 22px; margin-bottom: 15px; padding-left: 20px;"><strong>Pouring Task</strong></h4>
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 10px; padding-left: 20px;"><strong>Pouring Task</strong></h4>
         <div class="columns is-centered">
           <div class="column is-half">
             <div class="video-container">
@@ -392,9 +392,9 @@
           </div>
         </div>
 
-        <hr style="margin: 40px 0; border: none; border-top: 1px solid #ddd;">
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
 
-        <h4 style="text-align: left; font-size: 22px; margin-bottom: 15px; padding-left: 20px;"><strong>Bimanual Pick-and-Place Task</strong></h4>
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 10px; padding-left: 20px;"><strong>Bimanual Pick-and-Place Task</strong></h4>
         <div class="columns is-centered">
           <div class="column is-half">
             <div class="video-container">
@@ -410,9 +410,9 @@
           </div>
         </div>
 
-        <hr style="margin: 40px 0; border: none; border-top: 1px solid #ddd;">
+        <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
 
-        <h4 style="text-align: left; font-size: 22px; margin-bottom: 15px; padding-left: 20px;"><strong>Multi-Task Pick-and-Place</strong></h4>
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 10px; padding-left: 20px;"><strong>Multi-Task Pick-and-Place</strong></h4>
         <div class="columns is-centered">
           <div class="column is-half">
             <div class="video-container">
@@ -497,7 +497,7 @@
   
   
   <section class="section">
-    <div class="container" style="max-width: 80%;">
+    <div class="container" style="max-width: 90%;">
       <div class="columns is-centered">
         <div class="column">
           <div class="columns is-centered">
@@ -577,8 +577,8 @@
           </div>
 
           <div class="columns is-centered">
-            <div class="column is-8">
-              <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Sim-and-real co-training boosted perf by 37.9% on average across 6 tasks on 2 embodiments</p>
+            <div class="column is-9">
+              <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Quantitatively, sim-and-real co-training boosts policy performance by 37.9% on average across 6 tasks on 2 embodiments</p>
     
               <img src="./resources/main_table.png" width="100%" style="border-radius:20px;">
               <p style="text-align: center; font-size: 16px; margin-top: 15px;">
@@ -905,7 +905,7 @@
         <div class="columns is-centered">
           <div class="column is-three-quarters">
             <img src="./resources/results/cotraining_ratio.png" width="100%" style="border-radius:20px;">
-            <p style="text-align: center; font-size: 16px; margin-top: 18px;">Effect of the different co-training ratios, i.e., the percentage of simulation data sampled in each training step. We experiment on CupPnP task with 20 real demos and 1000 simulation demos from task-aware digital cousins. Tuning the co-training ratio is important for good performance of co-trained policies.</p>
+            <p style="text-align: left; font-size: 16px; margin-top: 18px;"><strong>Effect of the different co-training ratios (α).</strong> We experiment on CupPnP task with 20 real demos and 1000 simulation demos from task-aware digital cousins. Tuning the co-training ratio is important for good performance of co-trained policies.</p>
           </div>
         </div>
 
@@ -918,7 +918,7 @@
         <div class="columns is-centered">
           <div class="column is-three-quarters">
             <img src="./resources/results/camera_alignment.png" width="100%" style="border-radius:20px;">
-            <p style="text-align: center; font-size: 16px; margin-top: 18px;"><strong>Visualization of the default and aligned camera views.</strong> To evaluate the importance of this alignment, we rendered data using the default, unaligned camera view and trained policies on the resulting misaligned simulation data. The results indicate a significant drop in performance compared to policies co-trained with properly aligned DC data. On the Panda arm CounterToSinkPnP task, the cotraining success rate dropped from 67% to 56%, while in the GR-1 humanoid CupPnP task, it declined from 95% to 70%. Notably, the aligned camera is not strictly identical to the real-world camera.</p>
+            <p style="text-align: left; font-size: 16px; margin-top: 18px;"><strong>Visualization of the default and aligned camera views.</strong> To evaluate the importance of this alignment, we rendered data using the default, unaligned camera view and trained policies on the resulting misaligned simulation data. The results indicate a significant drop in performance compared to policies co-trained with properly aligned DC data. On the Panda arm CounterToSinkPnP task, the cotraining success rate dropped from 67% to 56%, while in the GR-1 humanoid CupPnP task, it declined from 95% to 70%. Notably, the aligned camera is not strictly identical to the real-world camera.</p>
           </div>
         </div>
 
