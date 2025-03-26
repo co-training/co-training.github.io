@@ -200,7 +200,7 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-three-quarters">
-          <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;"><strong>This work presents a simple recipe for effectively utilizing simulation data for real-world vision-based manipulation tasks.</strong></p>
+          <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;"><strong>This work presents a simple recipe for complementing real robot datasets with synthetic simulation datasets to facilitate learning vision-based manipulation policies for the real world.</strong></p>
           
           <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">We collect a modest number of demonstrations in real-world environments and use existing simulation frameworks to generate large-scale synthetic data. Across multiple embodiments and tasks that we study, simulation can offer a substantial improvement in performance even when the simulation and real-world data have significant discrepancies.</p>
           
@@ -227,6 +227,13 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-three-quarters">
+          <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">In this work, we consider two types of simulation datasets: <strong>Task-Aware Digital Cousins</strong> and <strong>Task-Agnostic Prior Simulation Data</strong>.</p>
+
+          <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;"><strong>Task-Aware Digital Cousins:</strong> The concept of digital cousins was first introduced by <a href="https://arxiv.org/abs/2410.07408" target="_blank">Dai et al.</a> to refer to "a virtual asset or scene that, unlike a digital twin, does not explicitly model a real-world counterpart but still exhibits similar geometric and semantic affordances." In this work, we use "task-aware digital cousins" to refer to simulation tasks that <u>share the same task semantics</u>, namely the object categories in the environment and the same behaviors.</p>
+
+          <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;"><strong>Task-Agnostic Prior Simulation Data:</strong> We also consider existing large-scale simulation datasets, or prior task-agnostic simulation datasets, which have significantly more diversity and even less alignment and tuning.</p>
+
+          
           <div style="background-color: #f5f5f5; border-radius: 15px; padding: 20px; margin: 0 auto 30px auto; max-width: 90%;">
             <p style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 20px;">A Simple Recipe for Sim-and-Real Co-Training</p>
             <p style="text-align: left; font-size: 20px;"><strong>Based on our empirical study, we recommend:</strong></p>
@@ -388,7 +395,7 @@
     <div class="columns is-centered">
       <div class="column is-three-quarters">
         
-        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Creating a perfect digital twin copy of the real-world task is challenging, requiring extensive manual tuning, system identification, and sourcing identical 3D assets. Instead, we opt to create tasks in simulation that <u>share the same task semantics</u>, namely the object categories in the environment and the same behaviors. We call these <strong>task-aware digital cousins</strong>.</p>
+        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Creating a perfect digital twin copy of the real-world task is challenging, requiring extensive manual tuning, system identification, and sourcing identical 3D assets. Instead, we opt to create <strong>task-aware digital cousins</strong>, i.e., tasks in simulation that <u>share the same task semantics</u> but may have discrepancies in visual and physical features.</p>
 
         <h4 style="text-align: left; font-size: 22px; margin-bottom: 5px; padding-left: 20px;"><strong>Cup Pick-and-Place Task</strong></h4>
         <div class="columns is-centered">
@@ -968,7 +975,7 @@
         <div class="columns is-centered">
           <div class="column is-three-quarters">
             <img src="./resources/results/camera_alignment.png" width="100%" style="border-radius:20px;">
-            <p style="text-align: left; font-size: 16px; margin-top: 18px;"><strong>Visualization of the default and aligned camera views.</strong> To evaluate the importance of this alignment, we rendered data using the default, unaligned camera view and trained policies on the resulting misaligned simulation data. The results indicate a significant drop in performance compared to policies co-trained with properly aligned DC data. On the Panda arm CounterToSinkPnP task, the cotraining success rate dropped from 67% to 56%, while in the GR-1 humanoid CupPnP task, it declined from 95% to 70%. Notably, the aligned camera is not strictly identical to the real-world camera.</p>
+            <p style="text-align: left; font-size: 16px; margin-top: 18px;"><strong>Visualization of the default and aligned camera views.</strong> To evaluate the importance of this alignment, we rendered data using the default, unaligned camera view and trained policies on the resulting misaligned simulation data. The results indicate a significant drop in performance compared to policies co-trained with properly aligned digital cousin data. On the Panda arm CounterToSinkPnP task, the cotraining success rate dropped from 67% to 56%, while in the GR-1 humanoid CupPnP task, it declined from 95% to 70%. Notably, the aligned camera is not strictly identical to the real-world camera.</p>
           </div>
         </div>
 
@@ -1012,7 +1019,7 @@
         <div class="column is-three-quarters">
           <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Given our observation that incorporating task-aware digital cousins, such as camera viewpoint alignment, enhances performance, we pose a follow-up question: Would improving visual fidelity by making simulation rendering closer to reality enhance co-training?</p>
           
-          <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We fine-tune <a href="https://arxiv.org/abs/2408.06072">CogVideoX</a>, a video diffusion model, on CupPnP real demonstration videos in the Text2Video (T2V) modality. To adapt the model for style transfer on simulation videos—preserving object positions while enhancing visual realism—we adopt a simple strategy: instead of generating videos from pure noise, we introduce noise into reference simulation videos and use them as initialization for video diffusion. Lower noise levels retain more of the original simulation textures, producing outputs closer to the inputs, while higher noise levels result in more realistic appearances but may distort object poses. </p>
+          <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We fine-tune <a href="https://arxiv.org/abs/2408.06072">CogVideoX (Yang et al., 2024)</a>, a video diffusion model, on CupPnP real demonstration videos in the Text2Video (T2V) modality. To adapt the model for style transfer on simulation videos—preserving object positions while enhancing visual realism—we adopt a simple strategy: instead of generating videos from pure noise, we introduce noise into reference simulation videos and use them as initialization for video diffusion. Lower noise levels retain more of the original simulation textures, producing outputs closer to the inputs, while higher noise levels result in more realistic appearances but may distort object poses. </p>
 
 
           <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We find that Vid2Vid-enhanced visual fidelity leads to a 5-10% average improvement in policy performance, with the most significant benefits occurring when the number of simulation or real-world trajectories is low. </p>
