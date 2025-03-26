@@ -205,8 +205,28 @@
           <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">We collect a modest number of demonstrations in real-world environments and use existing simulation frameworks to generate large-scale synthetic data. Across multiple embodiments and tasks that we study, simulation can offer a substantial improvement in performance even when the simulation and real-world data have significant discrepancies.</p>
           
           <video class="center" playsinline autoplay loop muted controls src="./resources/twitter_video.mp4" width="100%" style="border-radius:20px;"></video>
-          
-          <br>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-three-quarters">
+            <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Our Simple Recipe for Effective Sim-and-Real Co-Training</strong></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
           <div style="background-color: #f5f5f5; border-radius: 15px; padding: 20px; margin: 0 auto 30px auto; max-width: 90%;">
             <p style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 20px;">A Simple Recipe for Sim-and-Real Co-Training</p>
             <p style="text-align: left; font-size: 20px;"><strong>Based on our empirical study, we recommend:</strong></p>
@@ -221,7 +241,7 @@
     </div>
   </section>
 
-  <br>
+  
   <section class="hero is-light is-small">
   <div class="hero-body">
   <div class="container">
@@ -306,7 +326,7 @@
         <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">The results below show that the policy performs poorly, even with 400 real demonstrations. In contrast, our co-training strategy consistently outperforms the real-only policy, demonstrating the effectiveness of our co-training strategy.</p>
 
         <div class="columns is-centered">
-          <div class="column">
+          <div class="column is-8 has-text-centered">
             <img src="./resources/results/ladder_to_the_moon.png" width="70%" style="border-radius:20px;">
             <p style="text-align: center; font-size: 16px; margin-top: 15px;">
               We use 4000 simulation Digital Cousin (DC) demos and vary the number of real demos from 40 to 400 on task MultiTaskPnP. The results show that our co-training recipe remains beneficial in data-rich settings.
@@ -327,7 +347,7 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-three-quarters">
-          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Sim-and-Real Co-Training Pipeline</strong></h3>
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Our Sim-and-Real Co-Training Pipeline</strong></h3>
         </div>
       </div>
     </div>
@@ -370,7 +390,7 @@
         
         <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Creating a perfect digital twin copy of the real-world task is challenging, requiring extensive manual tuning, system identification, and sourcing identical 3D assets. Instead, we opt to create tasks in simulation that <u>share the same task semantics</u>, namely the object categories in the environment and the same behaviors. We call these <strong>task-aware digital cousins</strong>.</p>
 
-        <h4 style="text-align: left; font-size: 22px; margin-bottom: 10px; padding-left: 20px;"><strong>Cup Pick-and-Place Task</strong></h4>
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 5px; padding-left: 20px;"><strong>Cup Pick-and-Place Task</strong></h4>
         <div class="columns is-centered">
           <div class="column is-5">
             <div class="video-container">
@@ -386,9 +406,9 @@
           </div>
         </div>
         
-        <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
+        <hr style="margin: 5px 0; border: none; border-top: 1px solid #ddd;">
         
-        <h4 style="text-align: left; font-size: 22px; margin-bottom: 10px; padding-left: 20px;"><strong>Milk Box Pick-and-Place Task</strong></h4>
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 5px; padding-left: 20px;"><strong>Milk Box Pick-and-Place Task</strong></h4>
         <div class="columns is-centered">
           <div class="column is-5">
             <div class="video-container">
@@ -404,9 +424,9 @@
           </div>
         </div>
         
-        <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
+        <hr style="margin: 5px 0; border: none; border-top: 1px solid #ddd;">
         
-        <h4 style="text-align: left; font-size: 22px; margin-bottom: 10px; padding-left: 20px;"><strong>Pouring Task</strong></h4>
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 5px; padding-left: 20px;"><strong>Pouring Task</strong></h4>
         <div class="columns is-centered">
           <div class="column is-5">
             <div class="video-container">
@@ -422,9 +442,9 @@
           </div>
         </div>
 
-        <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
+        <hr style="margin: 5px 0; border: none; border-top: 1px solid #ddd;">
 
-        <h4 style="text-align: left; font-size: 22px; margin-bottom: 10px; padding-left: 20px;"><strong>Bimanual Pick-and-Place Task</strong></h4>
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 5px; padding-left: 20px;"><strong>Bimanual Pick-and-Place Task</strong></h4>
         <div class="columns is-centered">
           <div class="column is-5">
             <div class="video-container">
@@ -440,9 +460,9 @@
           </div>
         </div>
 
-        <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
+        <hr style="margin: 5px 0; border: none; border-top: 1px solid #ddd;">
 
-        <h4 style="text-align: left; font-size: 22px; margin-bottom: 10px; padding-left: 20px;"><strong>Multi-Task Pick-and-Place</strong></h4>
+        <h4 style="text-align: left; font-size: 22px; margin-bottom: 5px; padding-left: 20px;"><strong>Multi-Task Pick-and-Place</strong></h4>
         <div class="columns is-centered">
           <div class="column is-5">
             <div class="video-container">
@@ -611,7 +631,7 @@
               <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Quantitatively, sim-and-real co-training boosts policy performance by 37.9% on average across 6 tasks on 2 embodiments:</p>
     
               <img src="./resources/main_table.png" width="100%" style="border-radius:20px;">
-              <p style="text-align: center; font-size: 16px; margin-top: 15px;">
+              <p style="text-align: left; font-size: 16px; margin-top: 15px;">
                 We compare co-training with different simulation data on six tasks across two robots. Co-training with Prior consistently boosts performance over policies trained on real data only. On top of these results, adding better aligned DC usually further improves the performance.
               </p>
             </div>
@@ -888,7 +908,7 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-three-quarters">
-          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Our Simple Recipe for Effective Sim-and-Real Co-Training</strong></h3>
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>We conducted a comprehensive study to understand which dataset composition factors in simulation and real-world datasets matter the most, resulting in the recipe above</strong></h3>
         </div>
       </div>
     </div>
@@ -902,7 +922,7 @@
       <div class="column is-three-quarters">
         
         
-        <p style="text-align: left; font-size: 20px;">We conducted a comprehensive study to understand which dataset composition factors in simulation and real-world datasets matter the most, resulting in the recipe above. Our findings help practitioners effectively leverage synthetic simulation data for real-world robotics tasks.</p>
+        <p style="text-align: left; font-size: 20px;">Our findings help practitioners effectively leverage synthetic simulation data for real-world robotics tasks.</p>
 
         <!-- <div class="column is-three-quarters">
           <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;"><strong>Data Composition</strong></p>
@@ -992,7 +1012,7 @@
         <div class="column is-three-quarters">
           <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Given our observation that incorporating task-aware digital cousins, such as camera viewpoint alignment, enhances performance, we pose a follow-up question: Would improving visual fidelity by making simulation rendering closer to reality enhance co-training?</p>
           
-          <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We fine-tune CogVideo-X, a video diffusion model, on CupPnP real demonstration videos in the Text2Video (T2V) modality. To adapt the model for style transfer on simulation videos—preserving object positions while enhancing visual realism—we adopt a simple strategy: instead of generating videos from pure noise, we introduce noise into reference simulation videos and use them as initialization for video diffusion. Lower noise levels retain more of the original simulation textures, producing outputs closer to the inputs, while higher noise levels result in more realistic appearances but may distort object poses. </p>
+          <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We fine-tune <a href="https://arxiv.org/abs/2408.06072">CogVideoX</a>, a video diffusion model, on CupPnP real demonstration videos in the Text2Video (T2V) modality. To adapt the model for style transfer on simulation videos—preserving object positions while enhancing visual realism—we adopt a simple strategy: instead of generating videos from pure noise, we introduce noise into reference simulation videos and use them as initialization for video diffusion. Lower noise levels retain more of the original simulation textures, producing outputs closer to the inputs, while higher noise levels result in more realistic appearances but may distort object poses. </p>
 
 
           <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We find that Vid2Vid-enhanced visual fidelity leads to a 5-10% average improvement in policy performance, with the most significant benefits occurring when the number of simulation or real-world trajectories is low. </p>
