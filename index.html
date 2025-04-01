@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Sim-and-Real Co-Training: A Simple Recipe for Vision-Based Robotic Manipulation.">
+  <meta name="keywords" content="Sim-and-Real Co-Training, Vision-Based Robotic Manipulation, Imitation Learning, Sim-to-Real Transfer, Robotics.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sim-and-Real Co-Training: A Simple Recipe for Vision-Based Robotic Manipulation</title>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-J6CFD4WZJ0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-J6CFD4WZJ0');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <style>
+    .carousel {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      margin: 20px 0;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      min-height: 400px;
+    }
+
+    .carousel-container {
+      display: flex;
+      width: 100%;
+      transition: transform 0.3s ease-in-out;
+      position: relative;
+      height: 100%;
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      flex-shrink: 0;
+      display: block;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      transition: background-color 0.2s;
+    }
+
+    .carousel-nav:hover {
+      background: rgba(255, 255, 255, 1);
+    }
+
+    .carousel-nav.prev {
+      left: 10px;
+    }
+
+    .carousel-nav.next {
+      right: 10px;
+    }
+
+    .video-container {
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .video-container video {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 400px;
+      object-fit: contain;
+    }
+
+    .columns.is-centered {
+      margin: 0;
+    }
+
+    .column.is-5 {
+      padding: 0 10px;
+    }
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav> -->
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Sim-and-Real Co-Training: A Simple Recipe for Vision-Based Robotic Manipulation</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/abhiram-maddukuri-a987991ba">Abhiram Maddukuri</a><sup>*1</sup>,</span>
+            <span class="author-block">
+              <a href="https://zhenyujiang.me/">Zhenyu Jiang</a><sup>*1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://yunliangchen.github.io/">Lawrence Yunliang Chen</a><sup>*2,3</sup>,</span>
+            <span class="author-block">
+              <a href="https://snasiriany.me/">Soroush Nasiriany</a><sup>*1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://xieleo5.github.io/">Yuqi Xie</a><sup>1,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://squarefk.com/">Yu Fang</a><sup>2</sup>,</span>
+              <span class="author-block">
+                <a href="https://www.linkedin.com/in/ynng/">Wenqi Huang</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.zuwang95.com/">Zu Wang</a><sup>2,4</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.zhenjiaxu.com/">Zhenjia Xu</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://chernyadev.github.io/">Nikita Chernyadev</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://reedscot.github.io/">Scott Reed</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://goldberg.berkeley.edu/">Ken Goldberg</a><sup>3</sup>,</span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://ai.stanford.edu/~amandlek/">Ajay Mandlekar</a><sup>†2</sup>,</span>
+            <span class="author-block">
+              <a href="https://jimfan.me/">Linxi "Jim" Fan</a><sup>†2</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.cs.utexas.edu/~yukez/">Yuke Zhu</a><sup>†1,2</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors has-text-centered">
+            <p>*Equal Contributions, †Project Leads</p>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>UT Austin</span>
+            <span class="author-block"><sup>2</sup>NVIDIA Research</span>
+            <span class="author-block"><sup>3</sup>UC Berkeley</span>
+            <span class="author-block"><sup>4</sup>New York University</span>
+          </div>
+
+          <!-- <div class="is-size-5 publication-conference">
+            <p><strong>ICRA 2025</strong></p>
+          </div> -->
+
+          <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="./resources/paper.pdf"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2503.24361"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Video Link.
+                <span class="link-block">
+                  <a href="TODO"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span> -->
+                <!-- Code Link. -->
+                <!-- <span class="link-block">
+                  <a href="https://github.com/NVlabs/dexmimicgen/"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                    </a>
+                </span> -->
+                <!-- Twitter Link. -->
+                <!-- <span class="link-block">
+                  <a href="https://twitter.com/SteveTod1998/status/1852365700372832707"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                        <i class="fab fa-twitter"></i>
+                    </span>
+                    <span>Summary</span>
+                    </a>
+                </span> -->
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- full overview video -->
+  <section class="section" style="padding-top: 1rem;">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          
+          <video class="center" playsinline autoplay loop muted controls src="./resources/twitter_video.mp4" width="100%" style="border-radius:20px;"></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-three-quarters">
+            <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Sim-and-Real Co-Training Boosts Real-World Performance.</strong></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- full overview video -->
+  <section class="section" style="padding-top: 1rem;">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          
+          <video class="center" playsinline autoplay loop muted controls src="./resources/simvreal.mp4" width="100%" style="border-radius:20px;"></video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Simulation Data: Task-Aware Digital Cousins</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        
+        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Creating a perfect digital twin copy of the real-world task is challenging, requiring extensive manual tuning, system identification, and sourcing identical 3D assets. Instead, we opt to create <strong>task-aware digital cousins</strong>, i.e., tasks in simulation that share the same task semantics but may have discrepancies in visual and physical features.</p>
+
+        <!-- Task comparison carousel with transition effects -->
+        <div class="task-carousel comparison-carousel" style="position: relative; margin: 30px 0; padding: 20px; background: #f8f8f8; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; min-height: 450px !important; width: 100%; max-height: none !important;">
+          <!-- Carousel slides container with transition styling -->
+          <div class="slides-container" style="position: relative; width: 100%; height: 100%; transition: transform 0.5s ease-in-out;">
+                <!-- New Slide: Panda CounterToSink PnP -->
+              <div class="task-slide" style="position: absolute; width: 100%; transform: translateX(0); transition: transform 0.5s ease-in-out; padding-bottom: 10px; overflow: visible;">
+                <h4 style="text-align: center; font-size: 22px; margin-bottom: 30px;"><strong>Panda CounterToSink PnP</strong></h4>
+                <div class="columns is-centered">
+                  <div class="column is-5">
+                    <div style="margin-bottom: 25px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; height: auto; min-height: 300px;">
+                      <video height="auto" style="max-height: 300px; max-width: 100%; border-radius: 8px; object-fit: contain;" playsinline autoplay muted loop controls>
+                        <source src="./resources/dc_vs_real_comparison/panda_countertosink_sim.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px; margin-bottom: 30px;">Digital Cousin</p>
+                  </div>
+                  <div class="column is-5">
+                    <div style="margin-bottom: 25px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; height: auto; min-height: 300px;">
+                      <video height="auto" style="max-height: 300px; max-width: 100%; border-radius: 8px; object-fit: contain;" playsinline autoplay muted loop controls>
+                        <source src="./resources/dc_vs_real_comparison/panda_countertosink_real.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px; margin-bottom: 30px;">Real Demonstrations</p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- New Slide: Panda Close Door PnP -->
+              <div class="task-slide" style="position: absolute; width: 100%; transform: translateX(100%); transition: transform 0.5s ease-in-out; padding-bottom: 10px; overflow: visible;">
+                <h4 style="text-align: center; font-size: 22px; margin-bottom: 30px;"><strong>Panda CloseDoor</strong></h4>
+                <div class="columns is-centered">
+                  <div class="column is-5">
+                    <div style="margin-bottom: 25px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; height: auto; min-height: 300px;">
+                      <video height="auto" style="max-height: 300px; max-width: 100%; border-radius: 8px; object-fit: contain;" playsinline autoplay muted loop controls>
+                        <source src="./resources/dc_vs_real_comparison/panda_closedoor_sim.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px; margin-bottom: 30px;">Digital Cousin</p>
+                  </div>
+                  <div class="column is-5">
+                    <div style="margin-bottom: 25px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; height: auto; min-height: 300px;">
+                      <video height="auto" style="max-height: 300px; max-width: 100%; border-radius: 8px; object-fit: contain;" playsinline autoplay muted loop controls>
+                        <source src="./resources/dc_vs_real_comparison/panda_closedoor_real.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px; margin-bottom: 30px;">Real Demonstrations</p>
+                  </div>
+                </div>
+              </div>
+             
+              <!-- Panda CounterToCab PnP - NEW SLIDE WITH SQUARE VIDEOS -->
+              <div class="task-slide" style="position: absolute; width: 100%; transform: translateX(100%); transition: transform 0.5s ease-in-out; padding-bottom: 10px; overflow: visible;">
+                <h4 style="text-align: center; font-size: 22px; margin-bottom: 30px;"><strong>Panda CounterToCab PnP</strong></h4>
+                <div class="columns is-centered">
+                  <div class="column is-5">
+                    <div style="margin-bottom: 25px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; height: auto; min-height: 300px;">
+                      <video height="auto" style="max-height: 300px; max-width: 100%; border-radius: 8px; object-fit: contain;" playsinline autoplay muted loop controls>
+                        <source src="./resources/dc_vs_real_comparison/panda_countertocab_sim.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px; margin-bottom: 30px;">Digital Cousin</p>
+                  </div>
+                  <div class="column is-5">
+                    <div style="margin-bottom: 25px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; height: auto; min-height: 300px;">
+                      <video height="auto" style="max-height: 300px; max-width: 100%; border-radius: 8px; object-fit: contain;" playsinline autoplay muted loop controls>
+                        <source src="./resources/dc_vs_real_comparison/panda_countertocab_real.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px; margin-bottom: 30px;">Real Demonstrations</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <!-- Cup Pick-and-Place -->
+            <div class="task-slide" style="position: absolute; width: 100%; height: 100%; transform: translateX(0); transition: transform 0.5s ease-in-out; padding-bottom: 70px; overflow: visible; display: flex; flex-direction: column; justify-content: center;">
+              <h4 style="text-align: center; font-size: 22px; margin-bottom: 30px;"><strong>Humanoid Cup PnP</strong></h4>
+              <div class="columns is-centered">
+                <div class="column is-5">
+                  <div style="margin-bottom: 15px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px;">
+                      <source src="./resources/dc_vs_real_comparison/cup_sim.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px;">Digital Cousin</p>
+                </div>
+                <div class="column is-5">
+                  <div style="margin-bottom: 15px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px;">
+                      <source src="./resources/dc_vs_real_comparison/cup_real.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px;">Real Demonstrations</p>
+                </div>
+              </div>
+            </div>
+              
+            <!-- Milk Box Pick-and-Place -->
+            <div class="task-slide" style="position: absolute; width: 100%; height: 100%; transform: translateX(100%); transition: transform 0.5s ease-in-out; padding-bottom: 70px; overflow: visible; display: flex; flex-direction: column; justify-content: center;">
+              <h4 style="text-align: center; font-size: 22px; margin-bottom: 30px;"><strong>Humanoid Milk Box PnP</strong></h4>
+              <div class="columns is-centered">
+                <div class="column is-5">
+                  <div style="margin-bottom: 15px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px;">
+                      <source src="./resources/dc_vs_real_comparison/milk_sim.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px;">Digital Cousin</p>
+                </div>
+                <div class="column is-5">
+                  <div style="margin-bottom: 15px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px;">
+                      <source src="./resources/dc_vs_real_comparison/milk_real.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px;">Real Demonstrations</p>
+                </div>
+              </div>
+            </div>
+              
+            <!-- Pouring Task -->
+            <div class="task-slide" style="position: absolute; width: 100%; height: 100%; transform: translateX(100%); transition: transform 0.5s ease-in-out; padding-bottom: 70px; overflow: visible; display: flex; flex-direction: column; justify-content: center;">
+              <h4 style="text-align: center; font-size: 22px; margin-bottom: 30px;"><strong>Humanoid Pouring</strong></h4>
+              <div class="columns is-centered">
+                <div class="column is-5">
+                  <div style="margin-bottom: 15px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px;">
+                      <source src="./resources/dc_vs_real_comparison/pour_sim.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px;">Digital Cousin</p>
+                </div>
+                <div class="column is-5">
+                  <div style="margin-bottom: 15px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px;">
+                      <source src="./resources/dc_vs_real_comparison/pour_real.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px;">Real Demonstrations</p>
+                </div>
+              </div>
+            </div>
+              
+            <!-- Bimanual Pick-and-Place -->
+            <div class="task-slide" style="position: absolute; width: 100%; height: 100%; transform: translateX(100%); transition: transform 0.5s ease-in-out; padding-bottom: 70px; overflow: visible; display: flex; flex-direction: column; justify-content: center;">
+              <h4 style="text-align: center; font-size: 22px; margin-bottom: 30px;"><strong>Humanoid Bimanual PnP</strong></h4>
+              <div class="columns is-centered">
+                <div class="column is-5">
+                  <div style="margin-bottom: 15px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px;">
+                      <source src="./resources/dc_vs_real_comparison/bimanual_sim.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px;">Digital Cousin</p>
+                </div>
+                <div class="column is-5">
+                  <div style="margin-bottom: 15px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px;">
+                      <source src="./resources/dc_vs_real_comparison/bimanual_real.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px;">Real Demonstrations</p>
+                </div>
+              </div>
+            </div>
+              
+            <!-- Multi-Task Pick-and-Place -->
+            <div class="task-slide" style="position: absolute; width: 100%; height: 100%; transform: translateX(100%); transition: transform 0.5s ease-in-out; padding-bottom: 70px; overflow: visible; display: flex; flex-direction: column; justify-content: center;">
+              <h4 style="text-align: center; font-size: 22px; margin-bottom: 30px;"><strong>Humanoid Multi-Task PnP</strong></h4>
+              <div class="columns is-centered">
+                <div class="column is-5">
+                  <div style="margin-bottom: 15px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px;">
+                      <source src="./resources/dc_vs_real_comparison/4DC_sim_5x.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px;">Digital Cousin</p>
+                </div>
+                <div class="column is-5">
+                  <div style="margin-bottom: 15px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px;">
+                      <source src="./resources/dc_vs_real_comparison/4DC_real_3x.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px;">Real Demonstrations</p>
+                </div>
+              </div>
+            </div>
+          
+          <!-- Navigation arrows with improved styling -->
+          <button id="prev-slide" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: background 0.3s;">
+            &#10094;
+          </button>
+          <button id="next-slide" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: background 0.3s;">
+            &#10095;
+          </button>
+          
+          <!-- Slide indicators moved inside the carousel -->
+          <div class="slide-indicators" style="text-align: center; position: absolute; bottom: 15px; left: 0; right: 0; z-index: 100; background-color: rgba(0,0,0,0.5); padding: 8px; border-radius: 15px; width: 80px; margin: 0 auto;">
+            <span class="current-slide" style="font-weight: bold; color: white;">1</span> <span style="color: white;">/</span> <span class="total-slides" style="color: white;">6</span>
+          </div>
+        </div>
+        
+        <!-- Removed outside indicators since they're now inside the carousel -->
+
+        <!-- Carousel initialization happens at the end of the page with the unified carousel function -->
+      </div> 
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Simulation Data: Prior Task-Agnostic Simulation Datasets</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Creating digital cousin still requires extra effort. So we also explore using <strong>prior task-agnostic simulation datasets</strong>. We define a <strong>prior task-agnostic simulation dataset</strong> as any simulation dataset that existed before the creation of the downstream, real-world task. These datasets may have numerous discrepancies with real-world data, but present a very simple and convenient way to leverage simulation data.</p>
+      </div>
+    </div>
+    
+    <!-- Converting the single video to a carousel -->
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <!-- Prior simulation data carousel -->
+        <div class="task-carousel prior-sim-carousel" style="position: relative; margin: 30px 0; padding: 20px; background: #f8f8f8; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; min-height: 450px !important; width: 100%;">
+          <!-- Carousel slides container with transition styling -->
+          <div class="slides-container" style="position: relative; width: 100%; height: 100%;">
+            
+            <!-- Slide 1: Panda Prior Simulation -->
+            <div class="task-slide" style="position: absolute; width: 100%; transform: translateX(0); transition: transform 0.5s ease-in-out; padding-bottom: 100px;">
+              <h4 style="text-align: center; font-size: 22px; margin-bottom: 30px;"><strong>Prior Task-agnostic Simulation Data</strong></h4>
+              <div style="margin: 0 auto 15px auto; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 90%;">
+                <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px; max-height: 350px; object-fit: contain;">
+                  <source src="./resources/demo_data/prior_panda.mp4" type="video/mp4">
+                </video>
+              </div>
+              <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px;">Panda Setup (24 Tasks)</p>
+            </div>
+            
+            <!-- Slide 2: Humanoid Prior Simulation -->
+            <div class="task-slide" style="position: absolute; width: 100%; transform: translateX(100%); transition: transform 0.5s ease-in-out; padding-bottom: 100px;">
+              <h4 style="text-align: center; font-size: 22px; margin-bottom: 30px;"><strong>Prior Task-agnostic Simulation Data</strong></h4>
+              <div style="margin: 0 auto 15px auto; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 90%;">
+                <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px; max-height: 350px; object-fit: contain;">
+                  <source src="./resources/demo_data/prior_humanoid.mp4" type="video/mp4">
+                </video>
+              </div>
+              <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 15px;">Humanoid Setup (10 Tasks)</p>
+            </div>
+          </div>
+          
+          <!-- Navigation arrows with improved styling -->
+          <button id="prior-prev-slide" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: background 0.3s;">
+            &#10094;
+          </button>
+          <button id="prior-next-slide" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: background 0.3s;">
+            &#10095;
+          </button>
+          
+          <!-- Slide indicators moved inside the carousel -->
+          <div class="prior-slide-indicators" style="text-align: center; position: absolute; bottom: 15px; left: 0; right: 0; z-index: 100; background-color: rgba(0,0,0,0.5); padding: 8px; border-radius: 15px; width: 80px; margin: 0 auto;">
+            <span class="prior-current-slide" style="font-weight: bold; color: white;">1</span> <span style="color: white;">/</span> <span class="prior-total-slides" style="color: white;">2</span>
+          </div>
+        </div>
+        
+        <!-- Removed outside indicators since they're now inside the carousel -->
+
+        <!-- Carousel initialization happens at the end of the page with the unified carousel function -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>A Simple Recipe for Sim-and-Real Co-Training</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <div style="background-color: #f5f5f5; border-radius: 15px; padding: 20px; margin: 0 auto 30px auto; max-width: 90%;">
+          <p style="text-align: left; font-size: 20px;">We establish a systematic study for co-training on real-robot data and synthetically generated data from simulation, resulting in a <strong>simple recipe</strong> to leverage synthetic simulation data for real-world manipulation:</p>
+          <p style="text-align: left; font-size: 20px;">• <strong>Task and scene composition.</strong> Use task-aware digital cousins with similar task and scene compositions to real-world tasks. Multi-task prior simulation data can still help even with different compositions.</p>
+          <p style="text-align: left; font-size: 20px;">• <strong>Object composition and initialization.</strong> Incorporate diverse objects and varying placements in simulation to improve generalization.</p>
+          <p style="text-align: left; font-size: 20px;">• <strong>Task-aware digital cousin alignment.</strong> Ensure simulation tasks share the same definition and success criteria as real-world tasks. Similar camera viewpoints help, but perfect alignment isn't necessary.</p>
+          <p style="text-align: left; font-size: 20px;">• <strong>Co-training hyperparameters.</strong> Use significantly more simulation data than real-world data and carefully tune the co-training ratio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Sim-and-Real Co-Training Pipeline</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <img src="./resources/pipeline.png" width="100%" style="border-radius:20px;">
+        <p style="text-align: left; font-size: 16px; margin-top: 15px;">
+          <strong>Sim-and-Real Co-training Pipeline.</strong> <strong>Left:</strong> We start with a real-world task in mind and some prior simulation data. <strong>Middle:</strong> Given real-world tasks and prior simulation data, we can build additional digital cousin tasks that share semantic similarities with their real-world counterparts but may still have discrepancies in visual and physical features. From here we can consolidate prior simulation data, digital cousin data, and real world data. <strong>Right:</strong> We co-train on a mixture of real-world and simulation data. We sample simulation data according to a sampling ratio of &alpha;, and as we show in experiments, this sample ratio is crucial. After training the policy, we deploy the resulting policy directly in the real world.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Co-Training with Simulation Data Consistently Improves Real-World Performance.</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_only_overlaid.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Trained on Real-Only Data</p>
+              <p style="text-align: center; font-size: 16px">Success Rate: 31%</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_dc_overlaid.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Trained on Real + Task-Aware Digital Cousin</p>
+              <p style="text-align: center; font-size: 16px">Success Rate: 71%</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_prior_overlaid.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Trained on Real + Prior Simulation Data</p>
+              <p style="text-align: center; font-size: 16px">Success Rate: 69%</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="video-container">
+              <video class="center" playsinline autoplay loop muted src="./resources/4dc_method_comparison/4DC_real_dc_prior_overlaid.mp4" style="border-radius:10px;"></video>
+              <p style="text-align: center; font-size: 18px">Trained on Real + Prior Simulation Data + Task-Aware Digital Cousin</p>
+              <p style="text-align: center; font-size: 16px">Success Rate: 76%</p>
+            </div>
+          </div>
+        </div>
+        
+      </div> 
+    </div>
+
+  </div>
+</section>
+
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Sim-and-Real Co-Training Remains Beneficial in Data-Rich Settings.</strong></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+
+        <div class="columns is-centered">
+          <div class="column is-8 has-text-centered">
+            <img src="./resources/results/ladder_to_the_moon.png" width="100%" style="border-radius:20px;">
+            <p style="text-align: center; font-size: 16px; margin-top: 15px;">
+              We use 4000 simulation demos and increase the number of real demos from 40 to 400 on task MultiTaskPnP. The results show that our co-training recipe remains beneficial in data-rich settings.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+  <div class="hero-body">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><bold>Sim-and-Real Co-Training Recipe Works across Multiple Robot Embodiments and Workspaces.</bold></h3>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <!-- Remove the nested columns is-centered div that's causing the layout issue -->
+        
+        <!-- Replacing the 3 boxes with a carousel -->
+        <div class="task-carousel robot-embodiment-carousel" style="position: relative; margin: 10px 0 10px 0; padding: 15px; background: #f8f8f8; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); overflow: hidden; min-height: 450px !important; width: 100%; max-height: none !important;">
+          <!-- Carousel slides container with transition styling -->
+          <div class="slides-container" style="position: relative; width: 100%; height: 100%; transition: transform 0.5s ease-in-out; min-height: 450px !important;">
+            
+            <!-- Slide 1: Counter to Sink PnP -->
+            <div class="task-slide" style="position: absolute; width: 100%; transform: translateX(0); transition: transform 0.5s ease-in-out; padding-bottom: 80px; overflow: visible; min-height: 450px !important;">
+              <h4 style="text-align: center; font-size: 22px; margin-bottom: 25px;"><strong>Counter to Sink PnP</strong></h4>
+              <div class="columns is-centered">
+                <div class="column is-5">
+                  <div style="margin-bottom: 20px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-height: 300px !important;">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px; min-height: 300px !important; height: 300px !important;">
+                      <source src="./resources/rollout/CounterToSinkDC.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 20px;">Digital Cousin Demo</p>
+                </div>
+                <div class="column is-5">
+                  <div style="margin-bottom: 20px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-height: 300px !important;">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px; min-height: 300px !important; height: 300px !important;">
+                      <source src="./resources/rollout/rollout_panda_countertosink.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 20px;">Co-Training Policy (72%)</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Slide 2: Close Door -->
+            <div class="task-slide" style="position: absolute; width: 100%; transform: translateX(100%); transition: transform 0.5s ease-in-out; padding-bottom: 80px; overflow: visible; min-height: 450px !important;">
+              <h4 style="text-align: center; font-size: 22px; margin-bottom: 25px;"><strong>Close Door</strong></h4>
+              <div class="columns is-centered">
+                <div class="column is-5">
+                  <div style="margin-bottom: 20px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-height: 300px !important;">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px; min-height: 300px !important; height: 300px !important;">
+                      <source src="./resources/rollout/CloseDoorDC.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 20px;">Digital Cousin Demo</p>
+                </div>
+                <div class="column is-5">
+                  <div style="margin-bottom: 20px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-height: 300px !important;">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px; min-height: 300px !important; height: 300px !important;">
+                      <source src="./resources/rollout/rollout_panda_closedoor.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 20px;">Co-Training Policy (100%)</p>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Slide 3: Counter to Cabinet PnP -->
+            <div class="task-slide" style="position: absolute; width: 100%; transform: translateX(100%); transition: transform 0.5s ease-in-out; padding-bottom: 80px; overflow: visible; min-height: 450px !important;">
+              <h4 style="text-align: center; font-size: 22px; margin-bottom: 25px;"><strong>Counter to Cabinet PnP</strong></h4>
+              <div class="columns is-centered">
+                <div class="column is-5">
+                  <div style="margin-bottom: 20px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-height: 300px !important;">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px; min-height: 300px !important; height: 300px !important;">
+                      <source src="./resources/rollout/CounterToCabDC.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 20px;">Digital Cousin Demo</p>
+                </div>
+                <div class="column is-5">
+                  <div style="margin-bottom: 20px; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1); min-height: 300px !important;">
+                    <video width="100%" height="auto" playsinline autoplay muted loop controls style="display: block; border-radius: 8px; min-height: 300px !important; height: 300px !important;">
+                      <source src="./resources/rollout/rollout_panda_countertocab.mp4" type="video/mp4">
+                    </video>
+                  </div>
+                  <p style="text-align: center; font-size: 18px; font-weight: 500; margin-top: 20px;">Co-Training Policy (72%)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Navigation arrows -->
+          <button id="robot-prev-slide" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: background 0.3s;">
+            &#10094;
+          </button>
+          <button id="robot-next-slide" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; border-radius: 50%; width: 40px; height: 40px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: background 0.3s;">
+            &#10095;
+          </button>
+          
+          <!-- Slide indicators moved inside the carousel -->
+          <div class="robot-slide-indicators" style="text-align: center; position: absolute; bottom: 15px; left: 0; right: 0; z-index: 100; background-color: rgba(0,0,0,0.5); padding: 8px; border-radius: 15px; width: 80px; margin: 0 auto;">
+            <span class="robot-current-slide" style="font-weight: bold; color: white;">1</span> <span style="color: white;">/</span> <span class="robot-total-slides" style="color: white;">3</span>
+          </div>
+        </div>
+        
+        <!-- Removed outside indicators since they're now inside the carousel -->
+
+        <div class="video-container" style="background: #f8f8f8; padding: 15px; border-radius: 15px; margin-bottom: 20px;">
+          <h4 style="text-align: center; font-size: 22px; margin-bottom: 20px; color: #333;"><strong>Humanoid Tasks</strong></h4>
+          <div class="columns is-centered">
+            <div class="column is-6">
+              <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_cup.mp4" style="border-radius:10px; max-width: 100%;"></video>
+              <p style="text-align: center; font-size: 16px; margin-top: 10px">Cup PnP</p>
+            </div>
+            <div class="column is-6">
+              <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_milk.mp4" style="border-radius:10px; max-width: 100%;"></video>
+              <p style="text-align: center; font-size: 16px; margin-top: 10px">Milk Box PnP</p>
+            </div>
+          </div>
+          <div class="columns is-centered">
+            <div class="column is-6">
+              <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_pour.mp4" style="border-radius:10px; max-width: 100%;"></video>
+              <p style="text-align: center; font-size: 16px; margin-top: 10px">Pour</p>
+            </div>
+            <div class="column is-6">
+              <video class="center" playsinline autoplay loop muted src="./resources/rollout/rollout_humanoid_cube.mp4" style="border-radius:10px; max-width: 100%;"></video>
+              <p style="text-align: center; font-size: 16px; margin-top: 10px">Bimanual Cube PnP</p>
+            </div>
+          </div>
+        </div>
+
+        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Quantitatively, sim-and-real co-training boosts policy performance by 37.9% on average across 6 tasks on 2 embodiments:</p>
+
+        <img src="./resources/main_table.png" width="100%" style="border-radius:20px;">
+        <!-- <p style="text-align: left; font-size: 16px; margin-top: 15px;">
+          We compare co-training with different simulation data on six tasks across two robots. Co-training with Prior consistently boosts performance over policies trained on real data only. On top of these results, adding better aligned DC usually further improves the performance.
+        </p> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-light is-small">
+<div class="hero-body">
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-three-quarters">
+      <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Sim-and-Real Co-Training Improves Policy's Generalizability.</strong></h3>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-three-quarters">
+        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Co-training with simulation data can help policy generalize to novel object entities and poses unseen in the real-world dataset.</p>
+    
+      <img src="./resources/results/generalization.png" width="100%" style="border-radius:20px;">
+
+      <p style="text-align: left; font-size: 18px"><strong>Unseen Object</strong></p>
+
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <div class="video-container">
+            <video class="center" playsinline autoplay loop muted src="./resources/generalization/panda_novel_obj_baseline.mp4" style="border-radius:10px;"></video>
+            <p style="text-align: center; font-size: 18px">Real-Only Policy (33%)</p>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="video-container">
+            <video class="center" playsinline autoplay loop muted src="./resources/generalization/panda_novel_obj_cotraining.mp4" style="border-radius:10px;"></video>
+            <p style="text-align: center; font-size: 18px">Co-Training Policy (50%)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <div class="video-container">
+            <video class="center" playsinline autoplay loop muted src="./resources/generalization/cup_novel_obj_baseline_4x.mp4" style="border-radius:10px;"></video>
+            <p style="text-align: center; font-size: 18px">Real-Only Policy (10%)</p>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="video-container">
+            <video class="center" playsinline autoplay loop muted src="./resources/generalization/cup_novel_obj_cotraining_4x.mp4" style="border-radius:10px;"></video>
+            <p style="text-align: center; font-size: 18px">Co-Training Policy (80%)</p>
+          </div>
+        </div>
+      </div>
+
+      <p style="text-align: left; font-size: 18px"><strong>Novel Object Position</strong></p>
+
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <div class="video-container">
+            <video class="center" playsinline autoplay loop muted src="./resources/generalization/panda_novel_pos_baseline.mp4" style="border-radius:10px;"></video>
+            <p style="text-align: center; font-size: 18px">Real-Only Policy (11%)</p>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="video-container">
+            <video class="center" playsinline autoplay loop muted src="./resources/generalization/panda_novel_pos_cotraining.mp4" style="border-radius:10px;"></video>
+            <p style="text-align: center; font-size: 18px">Co-Training Policy (28%)</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <div class="video-container">
+            <video class="center" playsinline autoplay loop muted src="./resources/generalization/cup_novel_pos_baseline_4x.mp4" style="border-radius:10px;"></video>
+            <p style="text-align: center; font-size: 18px">Real-Only Policy (43%)</p>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="video-container">
+            <video class="center" playsinline autoplay loop muted src="./resources/generalization/cup_novel_pos_cotraining_4x.mp4" style="border-radius:10px;"></video>
+            <p style="text-align: center; font-size: 18px">Co-Training Policy (100%)</p>
+          </div>
+        </div>
+      </div>
+
+      <p style="text-align: left; font-size: 18px"><strong>Novel Object Color</strong></p>
+
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <div class="video-container">
+            <video class="center" playsinline autoplay loop muted src="./resources/generalization/different_color_cup_success_4x.mp4" style="border-radius:10px;"></video>
+            <p style="text-align: center; font-size: 18px">Co-Training Policy (100%)</p>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+</section>
+
+
+
+<section class="hero is-light is-small">
+<div class="hero-body">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Key Elements in Co-Training: Co-Training Ratio and Camera Alignment</strong></h3>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<section class="section">
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-three-quarters">
+      
+      
+      <p style="text-align: left; font-size: 20px;">Our findings help practitioners effectively leverage synthetic simulation data for real-world robotics tasks.</p>
+
+      <div class="column is-three-quarters">
+        <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;"><strong>Co-Training Ratio</strong></p>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <img src="./resources/results/cotraining_ratio.png" width="100%" style="border-radius:20px;">
+          <p style="text-align: left; font-size: 16px; margin-top: 18px;"><strong>Effect of the different co-training ratios (α).</strong> We experiment on CupPnP task with 20 real demos and 1000 simulation demos from task-aware digital cousins. Tuning the co-training ratio is important for good performance of co-trained policies.</p>
+        </div>
+      </div>
+
+
+
+      <div class="column is-three-quarters">
+        <p style="text-align: left; font-size: 24px; font-weight: bold; margin-bottom: 20px; padding-left: 20px;"><strong>Camera Alignment</strong></p>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-three-quarters">
+          <img src="./resources/results/camera_alignment.jpg" width="100%" style="border-radius:20px;">
+          <!-- <p style="text-align: left; font-size: 16px; margin-top: 18px;"><strong>Visualization of the default and aligned camera views.</strong> To evaluate the importance of this alignment, we rendered data using the default, unaligned camera view and trained policies on the resulting misaligned simulation data. The results indicate a significant drop in performance compared to policies co-trained with properly aligned digital cousin data. On the Panda arm CounterToSinkPnP task, the cotraining success rate dropped from 67% to 56%, while in the GR-1 humanoid CupPnP task, it declined from 95% to 70%. Notably, the aligned camera is not strictly identical to the real-world camera.</p> -->
+        </div>
+      </div>
+
+    </div> 
+  </div>
+</div>
+</section>
+
+
+
+
+
+
+<section class="hero is-light is-small">
+<div class="hero-body">
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-three-quarters">
+      <h3 class="title is-3" style="text-align: center; padding-bottom: 10px;"><strong>Improving Visual Fidelity with Vid2Vid</strong></h3>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-three-quarters">
+        <p style="text-align: left; font-size: 20px; margin-bottom: 20px; padding-left: 20px;">Given our observation that incorporating task-aware digital cousins, such as camera viewpoint alignment, enhances performance, we pose a follow-up question: Would improving visual fidelity by making simulation rendering closer to reality enhance co-training?</p>
+        
+        <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We fine-tune <a href="https://arxiv.org/abs/2408.06072">CogVideoX (Yang et al., 2024)</a>, a video diffusion model, on CupPnP real demonstration videos in the Text2Video (T2V) modality. To adapt the model for style transfer on simulation videos—preserving object positions while enhancing visual realism—we adopt a simple strategy: instead of generating videos from pure noise, we introduce noise into reference simulation videos and use them as initialization for video diffusion. Lower noise levels retain more of the original simulation textures, producing outputs closer to the inputs, while higher noise levels result in more realistic appearances but may distort object poses. </p>
+
+
+        <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We find that Vid2Vid-enhanced visual fidelity leads to a 5-10% average improvement in policy performance, with the most significant benefits occurring when the number of simulation or real-world trajectories is low. </p>
+
+        <video class="center" playsinline autoplay loop muted controls src="./resources/vid2vid/vid2vid_t2v.mp4" width="100%" style="border-radius:20px;"></video>
+        
+        <div style="margin-top: 30px; margin-bottom: 30px;"></div>
+        <p style="text-align: left; font-size: 18px; margin-bottom: 20px; padding-left: 20px;">We also explore an alternative strategy, where instead of using the RGB simulation video as noised input for T2V, we use the depth or segmentation video as the intermediate modality, where they are used as a conditioning for Video-to-Video (V2V) diffusion. This reduces the requirement of visual fidelity of the simulation videos, and we believe it opens up exciting opportunities for future research.</p>
+
+        <video class="center" playsinline autoplay loop muted controls src="./resources/vid2vid/vid2vid_v2v.mp4" width="100%" style="border-radius:20px;"></video>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section" id="BibTeX">
+<div class="container is-max-desktop content">
+  <h2 class="title">BibTeX</h2>
+  <pre><code>@article{maddukuri2025simandreal,
+    title   = {Sim-and-Real Co-Training: A Simple Recipe for Vision-Based Robotic Manipulation},
+    author  = {Maddukuri, Abhiram and Jiang, Zhenyu and Chen, Lawrence Yunliang and Nasiriany, Soroush and Xie, Yuqi and Fang, Yu and Huang, Wenqi and Wang, Zu and Xu, Zhenjia and Chernyadev, Nikita and Reed, Scott and Goldberg, Ken and Mandlekar, Ajay and Fan, Linxi and Zhu, Yuke},
+    journal = {arXiv preprint arXiv:2503.24361},
+    year    = {2025}
+  }</code></pre>
+</div>
+</section>
+
+
+
+<section class="section" id="Acknowledgements">
+<div class="container is-max-desktop content">
+  <h2 class="title">Contact</h2>
+  <p>If you have any questions, please feel free to contact <a href="mailto:zhejiang@nviida.com">Zhenyu Jiang</a>, <a href="mailto:amandlekar@nvidia.com">Ajay Mandelkar</a>, <a href="mailto:linxif@nvidia.com">Jim Fan</a>, and <a href="mailto:yukez@nvidia.com">Yuke Zhu</a>.</p>
+</div>
+</section>
+
+
+<footer class="footer">
+<div class="container">
+  <div class="columns is-centered">
+    <div class="column is-8">
+      <div class="content">
+        <p>
+          This website is licensed under a <a rel="license"
+                                              href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+          Commons Attribution-ShareAlike 4.0 International License</a>.
+        </p>
+        <p>
+          Website template borrowed from <a href="https://nerfies.github.io/">NeRFies</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+</footer>
+
+<script>
+// Generic carousel initialization function
+function initializeCarousel(options) {
+  const slides = document.querySelectorAll(options.slidesSelector);
+  const prevButton = document.getElementById(options.prevButtonId);
+  const nextButton = document.getElementById(options.nextButtonId);
+  const currentIndicator = document.querySelector(options.currentIndicatorSelector);
+  const totalIndicator = document.querySelector(options.totalIndicatorSelector);
+  const carouselContainer = document.querySelector(options.containerSelector);
+
+  // Initialize
+  let currentIndex = 0;
+  const totalSlides = slides.length;
+  let isAnimating = false;
+
+  // Set initial height for container to prevent layout shifts
+  if (carouselContainer && slides.length > 0) {
+    carouselContainer.style.minHeight = slides[0].offsetHeight + 'px';
+  }
+
+  // Update slide indicators
+  if (totalIndicator) totalIndicator.textContent = totalSlides;
+  if (currentIndicator) currentIndicator.textContent = currentIndex + 1;
+
+  // Function to show a specific slide
+  function showSlide(newIndex, isNext) {
+    if (isAnimating || !slides.length) return; // Prevent rapid clicking
+    isAnimating = true;
+    
+    const oldIndex = currentIndex;
+    currentIndex = newIndex;
+    
+    // Update indicators
+    if (currentIndicator) currentIndicator.textContent = currentIndex + 1;
+    
+    // Always use button direction for animation direction
+    // isNext = true means "next" button was clicked, so slides should move left
+    // isNext = false means "prev" button was clicked, so slides should move right
+    const isForward = isNext;
+    
+    // Before animating, properly position the new slide and ensure other slides are out of the way
+    slides.forEach((slide, index) => {
+      // Skip the current and target slides for now
+      if (index !== oldIndex && index !== newIndex) {
+        slide.style.transition = 'none';
+        slide.style.transform = 'translateX(100%)'; // Move all other slides off-screen to the right
+        void slide.offsetWidth; // Force reflow
+      }
+    });
+    
+    // Position the new slide based on the navigation direction
+    slides[newIndex].style.transition = 'none';
+    if (isForward) {
+      // If going forward (next), bring new slide from the right
+      slides[newIndex].style.transform = 'translateX(100%)';
+    } else {
+      // If going backward (prev), bring new slide from the left
+      slides[newIndex].style.transform = 'translateX(-100%)';
+    }
+    void slides[newIndex].offsetWidth; // Force reflow
+    
+    // Enable transitions for the animation
+    slides[oldIndex].style.transition = 'transform 0.5s ease-in-out';
+    slides[newIndex].style.transition = 'transform 0.5s ease-in-out';
+    
+    // Animate slides
+    if (isForward) {
+      // If going forward (next), current slide exits left, new slide enters from right
+      slides[oldIndex].style.transform = 'translateX(-100%)';
+      slides[newIndex].style.transform = 'translateX(0)';
+    } else {
+      // If going backward (prev), current slide exits right, new slide enters from left
+      slides[oldIndex].style.transform = 'translateX(100%)';
+      slides[newIndex].style.transform = 'translateX(0)';
+    }
+    
+    // Play videos in the new slide
+    const currentVideos = slides[newIndex].querySelectorAll('video');
+    currentVideos.forEach(video => {
+      video.play().catch(e => {
+        console.warn(`Video playback issue: ${e.message}`);
+      });
+    });
+    
+    // Reset animation flag after transition completes
+    setTimeout(() => {
+      isAnimating = false;
+    }, 500);
+  }
+
+  // Event listeners for navigation buttons
+  if (prevButton) {
+    prevButton.addEventListener('click', function() {
+      const newIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      showSlide(newIndex, false); // false means prev button
+    });
+    
+    prevButton.addEventListener('mouseover', function() {
+      this.style.background = 'rgba(0,0,0,0.8)';
+    });
+    
+    prevButton.addEventListener('mouseout', function() {
+      this.style.background = 'rgba(0,0,0,0.6)';
+    });
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener('click', function() {
+      const newIndex = (currentIndex + 1) % totalSlides;
+      showSlide(newIndex, true); // true means next button
+    });
+    
+    nextButton.addEventListener('mouseover', function() {
+      this.style.background = 'rgba(0,0,0,0.8)';
+    });
+    
+    nextButton.addEventListener('mouseout', function() {
+      this.style.background = 'rgba(0,0,0,0.6)';
+    });
+  }
+
+  // Optional: Keyboard navigation if enabled
+  if (options.enableKeyboardNav) {
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') {
+        if (prevButton) prevButton.click();
+      } else if (e.key === 'ArrowRight') {
+        if (nextButton) nextButton.click();
+      }
+    });
+  }
+
+  // Initialize: set proper positions for all slides
+  slides.forEach((slide, index) => {
+    if (index === 0) {
+      slide.style.transform = 'translateX(0)';
+    } else {
+      // Position all other slides off to the right initially
+      slide.style.transform = 'translateX(100%)';
+    }
+    
+    // Ensure proper stacking
+    slide.style.zIndex = index === 0 ? '2' : '1';
+    
+    // Remove overflow:hidden from individual slides, as it can interfere with video display
+    if (slide.style.overflow === 'hidden') {
+      slide.style.overflow = '';
+    }
+    
+    // Preload videos and ensure they're visible
+    const videos = slide.querySelectorAll('video');
+    videos.forEach(video => {
+      // Load the video
+      video.load();
+      
+      // Remove any max-height restrictions from JavaScript
+      if (video.style.maxHeight === '280px') {
+        video.style.maxHeight = '';
+      }
+    });
+  });
+}
+
+// Initialize all carousels when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+// First carousel - the comparison carousel
+if (document.querySelector('.comparison-carousel')) {
+  initializeCarousel({
+    slidesSelector: '.comparison-carousel .task-slide',
+    prevButtonId: 'prev-slide',
+    nextButtonId: 'next-slide',
+    currentIndicatorSelector: '.current-slide',
+    totalIndicatorSelector: '.total-slides',
+    containerSelector: '.comparison-carousel',
+    enableKeyboardNav: true
+  });
+}
+
+// Second carousel - the robot embodiment carousel
+if (document.querySelector('.robot-embodiment-carousel')) {
+  initializeCarousel({
+    slidesSelector: '.robot-embodiment-carousel .task-slide',
+    prevButtonId: 'robot-prev-slide',
+    nextButtonId: 'robot-next-slide',
+    currentIndicatorSelector: '.robot-current-slide',
+    totalIndicatorSelector: '.robot-total-slides',
+    containerSelector: '.robot-embodiment-carousel',
+    enableKeyboardNav: false
+  });
+}
+
+// Prior simulation data carousel
+if (document.querySelector('.prior-sim-carousel')) {
+  initializeCarousel({
+    slidesSelector: '.prior-sim-carousel .task-slide',
+    prevButtonId: 'prior-prev-slide',
+    nextButtonId: 'prior-next-slide',
+    currentIndicatorSelector: '.prior-current-slide',
+    totalIndicatorSelector: '.prior-total-slides',
+    containerSelector: '.prior-sim-carousel',
+    enableKeyboardNav: false
+  });
+}
+
+// Any other robot carousel if present
+if (document.querySelector('.robot-carousel')) {
+  initializeCarousel({
+    slidesSelector: '.robot-carousel .robot-slide',
+    prevButtonId: 'robot-carousel-prev-slide',
+    nextButtonId: 'robot-carousel-next-slide',
+    currentIndicatorSelector: '.robot-carousel-current-slide',
+    totalIndicatorSelector: '.robot-carousel-total-slides',
+    containerSelector: '.robot-carousel',
+    enableKeyboardNav: false
+  });
+}
+});
+
+// Additional script to specifically initialize the prior-sim-carousel properly
+document.addEventListener('DOMContentLoaded', function() {
+const priorCarousel = document.querySelector('.prior-sim-carousel');
+if (priorCarousel) {
+  const slides = priorCarousel.querySelectorAll('.task-slide');
+  const prevButton = document.getElementById('prior-prev-slide');
+  const nextButton = document.getElementById('prior-next-slide');
+  const currentIndicator = document.querySelector('.prior-current-slide');
+  const totalIndicator = document.querySelector('.prior-total-slides');
+  
+  if (slides.length > 0) {
+    // Set the total slides indicator
+    if (totalIndicator) totalIndicator.textContent = slides.length;
+    
+    // Ensure videos are displayed properly
+    slides.forEach((slide) => {
+      const videos = slide.querySelectorAll('video');
+      videos.forEach(video => {
+        // Make sure the video is visible
+        video.style.display = 'block';
+        video.style.visibility = 'visible';
+        video.style.opacity = '1';
+        
+        // Try to play the video
+        setTimeout(() => {
+          video.play().catch(e => {
+            console.warn(`Video playback issue: ${e.message}`);
+          });
+        }, 500);
+      });
+    });
+  }
+}
+});
+</script>
+
+</body>
+</html>
